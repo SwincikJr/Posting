@@ -1,5 +1,8 @@
 const getConnection = require('./getConnection')
 
+// Consulte os Casos de Usos automatizados de getConnection para pré-condições
+// Documentação/getConnection/Casos de Uso.txt 
+
 test('Teste de conexão com configurações corretas (vindas dos arquivo postingConfig.js)', () => {
 
     const callback = data => {

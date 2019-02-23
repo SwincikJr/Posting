@@ -1,0 +1,51 @@
+Função: getObject
+
+Assinatura: getObject(instance: any, callback: any, onConfig?: any): void
+
+Arquivo fonte: getObject.js
+
+Descrição: A função getObject realiza uma consulta simples em um banco de dados Postgres, em busca de um único registro. O parâmetro "instance" 
+deve ser um objeto contendo os atributos e os valores conhecidos para a consulta. Caso a consulta consiga ser realizada, a função invoca uma 
+callback passando-lhe o objeto resultante da consulta (ou nulo caso nenhum registro seja encontrado). O terceiro parâmetro onConfig é opcional e, 
+caso usado, deve ser um objeto contento as informações necessárias para estabelecimento da conexão. Caso o parâmetro onConfig seja omitido, a 
+função utilizará as informações contidas no arquivo postingConfig.js (veja a documentação de getConnection).
+
+Cuidados para o uso: É importante que o objeto passado como primeiro parâmetro seja uma instância de uma classe cujo nome seja o mesmo nome da 
+tabela do banco de dados em que a busca será realizada. Essa classe deve conter atributos com os mesmos nomes dos campos da tabela em que a 
+busca será realizada. Somente os valores dos atributos que não sejam nulos ou indefinidos são aproveitados para a consulta. Caso a consulta 
+retorne mais de um registro, somente o primeiro será retornado para a callback e os demais serão desconsiderados.
+ 
+Exemplos de uso:
+
+1)
+--------------------------------------------------------------------------------------------------------------------------------------------------
+class Pessoa
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObject(new Pessoa(1, null), res => {
+    console.log(res)
+}) // Query executada: select * from pessoa where id = 1
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+2)
+--------------------------------------------------------------------------------------------------------------------------------------------------
+class Aluno
+{
+    constructor(matricula = null, nome = null, curso = null)
+    {
+        this.matricula = matricula
+        this.nome = nome
+        this.curso = curso
+    }
+}
+
+getObject(new Aluno(null, 'Raphael', 'Administração'), res => {
+    console.log(res)
+}) // Query executada: select * from aluno where nome = 'Raphael' and curso = 'Administração'
+--------------------------------------------------------------------------------------------------------------------------------------------------
