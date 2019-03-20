@@ -1,0 +1,110 @@
+Caso 1: Uso correto de setAuto() (Automatizado).
+
+Pré-condições: 
+1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+
+class Teste extends Posting
+{
+    constructor()
+    {
+        super()
+        this.atr1 = 1
+        this.atr2 = 2
+        this.atr3 = 3
+    }
+}
+
+let teste = new Teste()
+teste.setAuto('atr1', 'atr2')
+
+console.log(teste._Auto)
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que o array ['atr1', 'atr2'] seja impresso no terminal.
+
+Caso 2: Nova instância de classe herdeira de Posting (Automatizado).
+
+Pré-condições: 
+1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+
+class Teste extends Posting
+{
+    constructor()
+    {
+        super()
+        this.atr1 = 1
+        this.atr2 = 2
+        this.atr3 = 3
+    }
+}
+
+let teste = new Teste()
+
+console.log(teste._Auto)
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um array vazio seja impresso no terminal. 
+
+Caso 3: Tentativa de inclusão de propriedade inexistente através de setAuto() (Automatizado).
+
+Pré-condições: 
+1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+
+class Teste extends Posting
+{
+    constructor()
+    {
+        super()
+        this.atr1 = 1
+        this.atr2 = 2
+        this.atr3 = 3
+    }
+}
+
+let teste = new Teste()
+teste.setAuto('atr1', 'inexistente')
+
+console.log(teste._Auto)
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que o array ['atr1'] seja impresso no terminal. 
+
+Caso 4: Tentativa de alteração da propriedade _Auto sem utilizar setAuto() (Automatizado).
+
+Pré-condições: 
+1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+
+class Teste extends Posting
+{
+    constructor()
+    {
+        super()
+        this.atr1 = 1
+        this.atr2 = 2
+        this.atr3 = 3
+    }
+}
+
+let teste = new Teste()
+teste._Auto = ['atr1']
+
+console.log(teste._Auto)
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um array vazio seja impresso no terminal.

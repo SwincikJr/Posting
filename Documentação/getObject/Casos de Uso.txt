@@ -171,3 +171,47 @@ getObject(new Inexistente(), res => {
 Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
 
 Resultado Esperado: espera-se que uma exceção do tipo "relation does not exist" seja lançada ao console e que o programa seja abortado.
+
+Caso 5: Consulta em uma tabela existente buscando por campo inexistente (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table pessoa (id serial primary key, nome varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getObject = require('./getObject')
+
+class Pessoa
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+let pessoa = new Pessoa()
+pessoa.inexistente = 'inexistente'
+
+getObject(pessoa, res => {
+    console.log(res)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que uma exceção de coluna inexistente seja lançada ao console e que o programa seja abortado.

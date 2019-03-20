@@ -1,0 +1,216 @@
+Caso 1: Inserir dado em tabela existente (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+const insertObject = require('./insertObject')
+
+class Aluno extends Posting
+{
+    constructor(id = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.nome = nome
+        this.curso = curso
+        this.setAuto('id')
+    }
+}
+
+insertObject(new Aluno(null, 'Mauro', 'ADS'), resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um objeto Aluno seja impresso no terminal com o atributo id preenchido, o atributo
+nome igual à 'Mauro' e o atributo curso igual à 'ADS'.
+
+Caso 2: Inserir dado em tabela existente somente com atributos auto (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+const insertObject = require('./insertObject')
+
+class Aluno extends Posting
+{
+    constructor(id = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.nome = nome
+        this.curso = curso
+        this.setAuto('id', 'nome', 'curso')
+    }
+}
+
+insertObject(new Aluno(null, null, null), resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um objeto Aluno seja impresso no terminal com o atributo id preenchido e os demais
+atributos nulos.
+
+Caso 3: Inserir dado em tabela inexistente (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const insertObject = require('./insertObject')
+
+class Inexistente
+{
+    constructor()
+    {
+        this.atributo = null
+    }
+}
+
+insertObject(new Inexistente(), resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que uma exceção de relação não existente seja lançada no terminal e que o programa seja
+abortado.
+
+Caso 4: Inserir dado em tabela existente e campo inexistente (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const insertObject = require('./insertObject')
+
+class Aluno
+{
+    constructor()
+    {
+        this.inexistente = 'inexistente'
+    }
+}
+
+insertObject(new Aluno(), resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que uma exceção de coluna não existente seja lançada no terminal e que o programa seja
+abortado.
+
+Caso 5: Inserir dados em tabela existente, campos existentes porém com tipo de dado diferente da tabela (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const Posting = require('./Posting')
+const insertObject = require('./insertObject')
+
+class Aluno extends Posting
+{
+    constructor()
+    {
+        super()
+        this.id = null
+        this. nome = 0
+        this.curso = 0
+        this.setAuto('id')
+    }
+}
+
+insertObject(new Aluno(), resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que a operação de inserção seja bem sucedida, retornando o objeto com seu campo id 
+preenchido. Se for consultado na tabela o novo dado inserido, verá que os valores numéricos do objeto foram convertidos 
+para string antes da inserção. 

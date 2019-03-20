@@ -1,5 +1,7 @@
 const getConnection = require('./getConnection')
 const getObject = require('./getObject')
+const insertObject = require('./insertObject')
+const Posting = require('./Posting')
 
 getConnection(client => {
     console.log('Doing something...')
@@ -26,3 +28,17 @@ getObject(new Pessoa(null, 'Inexistente'), res => {
 getObject(new Pessoa(), res => {
     console.log(res)
 })
+
+class Aluno extends Posting
+{
+    constructor(id = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.nome = nome
+        this.curso = curso
+        this.setAuto('id')
+    }
+}
+
+insertObject(new Aluno(null, 'Mauro', 'ADS'), resp => console.log(resp))

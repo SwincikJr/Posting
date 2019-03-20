@@ -7,7 +7,7 @@ const getObject = (instance, callback, onConfig = null) => {
     let count = 1
 
     Object.getOwnPropertyNames(instance).forEach(element => {
-        if (instance[element] != null && instance[element] != undefined) 
+        if (instance[element] != null && instance[element] != undefined && Object.getOwnPropertyDescriptor(instance, element).enumerable) 
         {
             filter += ` and ${element} = $${count++}`
             values.push(instance[element])

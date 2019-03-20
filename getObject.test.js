@@ -46,12 +46,21 @@ test('Consulta em uma tabela existente e muitos registros existentes.', () => {
 
 test('Consulta em uma tabela inexistente.', () => {
 
-    const cb = res => { return }
-    
-    const testingGetObject = () => {
-        getObject(new Inexistente(), cb)
+    expect(() => {
+        getObject(new Inexistente(), resp => { return })
         done()
-    }
+    }).toThrow()
+    
+})
 
-    expect(testingGetObject).toThrow()
+test('Consulta em uma tabela existente buscando por campo inexistente', () => {
+
+    let pessoa = new Pessoa()
+    pessoa.inexistente = 'inexistente'
+
+    expect(() => {
+        getObject(pessoa, resp => { return })
+        done()
+    }).toThrow()
+
 })
