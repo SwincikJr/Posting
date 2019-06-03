@@ -18,11 +18,24 @@ automático.
 forma, para garantir o funcionamento correto do framework.
     Exemplos de uso: Para exemplos, consulte a Documentação de insertObject.
 
+    2) _Key: este atributo é utilizado pelo Posting Framework para identificar os atributos chaves de uma classe,
+destinados à identificar seu registro correspondente em uma tabela do banco de dados para operações de atualização
+e deleção.
+    Cuidados para o uso: O nome _Key deve estar reservado para o propósito descrito e não ser usado de outra forma.
+Além disso, é recomendado que os atributos chaves de uma classe sejam fixos e seus valores, uma vez preenchidos,
+não sejam alterados para garantir, assim, a integridade dos dados armazenado no banco de dados Postgres.
+
 Métodos:
 
-    1) setAuto(): este método é usado para preencher o atributo _Auto, e recebe como parâmetro uma lista de
-strings, onde cada uma é o nome de um atributo de preenchimento automático. Caso o atributo passado como
-parâmetro não exista no objeto, ele será desconsiderado. 
+    1) setAuto(...values): este método é usado para preencher o atributo _Auto, e recebe como parâmetro uma lista de
+strings, onde cada uma é o nome de um atributo de preenchimento automático. Caso o atributo passado entre os
+parâmetros não exista na classe, ele será desconsiderado. 
     Cuidados para o uso: recomendamos que este método seja utilizado no contrutor da classe herdeira de Posting.
     Exemplos de uso: Para exemplos, consulte a Documentação de insertObject.
+    
+    2) setKey(...values): este método é usado para preencher o atributo _Key, e recebe como parâmetro uma lista de
+strings, onde cada uma é o nome de um atributo chave. Caso o atributo passado entre os parâmetros não exista na classe,
+ele será desconsiderado. 
+    Cuidados para o uso: recomendamos que este método seja utilizado no contrutor da classe herdeira de Posting.
+    Exemplos de uso: Para exemplos, consulte a Documentação de updateObject.
     

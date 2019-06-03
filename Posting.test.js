@@ -1,7 +1,7 @@
 const Posting = require('./Posting')
 
-// Consulte os Casos de Usos automatizados de Posting para pré-condições
-// Documentação/Posting/Casos de Uso.txt
+// Consulte os Casos de Usos automatizados de Posting para prÃ©-condiÃ§Ãµes
+// DocumentaÃ§Ã£o/Posting/Casos de Uso.txt
 
 class Teste extends Posting
 {
@@ -14,6 +14,8 @@ class Teste extends Posting
     }
 }
 
+// _Auto
+
 test('Uso correto de setAuto()', () => {
 
     let teste = new Teste()
@@ -22,14 +24,14 @@ test('Uso correto de setAuto()', () => {
 
 })
 
-test('Nova instância de classe herdeira de Posting', () => {
+test('Nova instÃ¢ncia de classe herdeira de Posting', () => {
 
     let teste = new Teste()
     expect(teste._Auto).toEqual([])
 
 })
 
-test('Tentativa de inclusão de propriedade inexistente através de setAuto()', () => {
+test('Tentativa de inclusÃ£o de propriedade inexistente atravÃ©s de setAuto()', () => {
 
     let teste = new Teste()
     teste.setAuto('atr1', 'inexistente')
@@ -37,10 +39,43 @@ test('Tentativa de inclusão de propriedade inexistente através de setAuto()', ()
 
 })
 
-test('Tentativa de alteração da propriedade _Auto sem utilizar setAuto()', () => {
+test('Tentativa de alteraÃ§Ã£o da propriedade _Auto sem utilizar setAuto()', () => {
 
     let teste = new Teste()
     teste._Auto = ['atr1']
     expect(teste._Auto).toEqual([])
+
+})
+
+// _Key
+
+test('Uso correto de setKey()', () => {
+
+    let teste = new Teste()
+    teste.setKey('atr1', 'atr2')
+    expect(teste._Key).toEqual(['atr1', 'atr2'])
+
+})
+
+test('Nova instÃ¢ncia de classe herdeira de Posting', () => {
+
+    let teste = new Teste()
+    expect(teste._Key).toEqual([])
+
+})
+
+test('Tentativa de inclusÃ£o de propriedade inexistente atravÃ©s de setKey()', () => {
+
+    let teste = new Teste()
+    teste.setKey('atr1', 'inexistente')
+    expect(teste._Key).toEqual(['atr1'])
+
+})
+
+test('Tentativa de alteraÃ§Ã£o da propriedade _Auto sem utilizar setKey()', () => {
+
+    let teste = new Teste()
+    teste._Key = ['atr1']
+    expect(teste._Key).toEqual([])
 
 })
