@@ -125,27 +125,35 @@ test('Alterar dado de classe com atributos _Key e não _Key', () => {
         }
     }
 
-    let objeto = new Conta()
+    let expected = new Conta(null, 'teste@teste.com', 'password02')
 
-    const callback = resp => {
-        expect(resp).toEqual({
-            id: objeto.id,
-            email: objeto.email,
-            senha: objeto.senha
+    const insert = () => {
+        return new Promise((resolve, reject) => {
+            insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
+                expected.id = resp.id
+                update().then((data) => resolve(data))
+            })
         })
     }
 
-    const update = (instance) => {
-        updateObject(instance, resp => {
-            getObject(new Filial(resp.id), callback)
+    const update = () => {
+        return new Promise((resolve, reject) => {
+            updateObject(expected, resp => {
+                checkResult().then((data) => resolve(data))
+            })
         })
     }
 
-    insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
-        objeto.id = resp.id
-        objeto.email = resp.email
-        objeto.senha = resp.senha
-        resp.senha = 'password02'
-        update(resp)
+    const checkResult = () => {
+        return new Promise((resolve, reject) => {
+            getObject(expected, resp => {
+                resolve(resp)
+            })
+        })
+    }
+
+    return insert().then((data) => {
+        expect(data).toEqual(expected)
     })
+
 })
