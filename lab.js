@@ -3,6 +3,7 @@ const getObject = require('./getObject')
 const insertObject = require('./insertObject')
 const updateObject = require('./updateObject')
 const Posting = require('./Posting')
+const deleteObject = require('./deleteObject')
 
 getConnection(client => {
     console.log('Doing something...')
@@ -144,4 +145,21 @@ insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
             console.log(resp)
         })
     })
+})
+
+class Livro extends Posting
+{
+    constructor(id = null, titulo = null, autor = null)
+    {
+        super()
+        this.id = id
+        this.titulo = titulo
+        this.autor = autor
+        this.setAuto('id')
+        this.setKey('titulo')
+    }
+}
+
+deleteObject(new Livro(5, 'titulo do livro', null), resp => {
+    console.log(resp)
 })

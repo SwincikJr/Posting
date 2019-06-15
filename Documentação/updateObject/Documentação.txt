@@ -14,7 +14,7 @@ getConnection).
 Cuidados para o uso: O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do 
 banco de dados em que se deseja realizar a alteração. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos 
 dessa tabela, com exceção de '_Key', que destina-se a informar os atributos responsáveis por identificar o(s) registro(s) que será (serão)
-alterado(s). É importante ressaltar que o atributo _Key será utilizado pela função updateObject para montar a cláusula 'where' da query
+alterado(s). É importante ressaltar que o atributo _Key será utilizado pela função updateObject para montar a cláusula WHERE da query
 de alteração que será executada no banco de dados, ou seja, caso nenhum atributo seja declarado em _Key, a alteração será realizada em toda
 a tabela do banco de dados. Além disso, caso os atributos declarados em _Key não garantam a unicidade do registro, mais de um registro na
 tabela será alterado. Por fim, os atributos declarados em _Auto (veja a documentação de Posting) serão ignorados e seus valores não serão
