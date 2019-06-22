@@ -1,4 +1,4 @@
-Caso 1: Consulta em uma tabela existente e um registro existente (Automatizado).
+Caso 1: Execução de query não parametrizada com retorno (Automatizado)
 
 Pré-condições: 
 1) O usuário deve possuir acesso a um banco de dados Postgres.
@@ -15,171 +15,38 @@ module.exports = {
 --------------------------------------------------------------------------------------------------------------------
 3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
 --------------------------------------------------------------------------------------------------------------------
-create table pessoa (id serial primary key, nome varchar(50));
+create table atleta (id serial primary key, nome varchar(50), modalidade varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve inserir nessa tabela um registro conforme segue:
 --------------------------------------------------------------------------------------------------------------------
-insert into pessoa (nome) values ('Mauro');
---------------------------------------------------------------------------------------------------------------------
-5) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
---------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
-
-class Pessoa
-{
-    constructor(id = null, nome = null)
-    {
-        this.id = id
-        this.nome = nome
-    }
-}
-
-getObject(new Pessoa(1, null), res => {
-    console.log(res)
-})
---------------------------------------------------------------------------------------------------------------------
-
-Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
-
-Resultado Esperado: espera-se que um objeto Pessoa com os atributos id igual à 1 e nome igual à Mauro seja
-impresso no console.
-
-Caso 2: Consulta em uma tabela existente e nenhum registro existente (Automatizado).
-
-Pré-condições: 
-1) O usuário deve possuir acesso a um banco de dados Postgres.
-2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
-Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
---------------------------------------------------------------------------------------------------------------------
-module.exports = {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'database',
-    password: 'password',
-    port: 5432 //your port
-}
---------------------------------------------------------------------------------------------------------------------
-3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
---------------------------------------------------------------------------------------------------------------------
-create table pessoa (id serial primary key, nome varchar(50));
---------------------------------------------------------------------------------------------------------------------
-4) O usuário deve inserir nessa tabela um registro conforme segue:
---------------------------------------------------------------------------------------------------------------------
-insert into pessoa (nome) values ('Mauro');
---------------------------------------------------------------------------------------------------------------------
-5) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
---------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
-
-class Pessoa
-{
-    constructor(id = null, nome = null)
-    {
-        this.id = id
-        this.nome = nome
-    }
-}
-
-getObject(new Pessoa(null, 'Inexistente'), res => {
-    console.log(res)
-})
---------------------------------------------------------------------------------------------------------------------
-
-Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
-
-Resultado Esperado: espera-se que "null" seja impresso no console.
-
-Caso 3: Consulta em uma tabela existente e muitos registros existentes (Automatizado).
-
-Pré-condições: 
-1) O usuário deve possuir acesso a um banco de dados Postgres.
-2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
-Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
---------------------------------------------------------------------------------------------------------------------
-module.exports = {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'database',
-    password: 'password',
-    port: 5432 //your port
-}
---------------------------------------------------------------------------------------------------------------------
-3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
---------------------------------------------------------------------------------------------------------------------
-create table pessoa (id serial primary key, nome varchar(50));
---------------------------------------------------------------------------------------------------------------------
-4) O usuário deve inserir nessa tabela um registro conforme segue:
---------------------------------------------------------------------------------------------------------------------
-insert into pessoa (nome) values ('Mauro');
+insert into atleta (nome, modalidade) values ('Marta', 'Futebol');
 --------------------------------------------------------------------------------------------------------------------
 5) O usuário deve inserir nessa tabela um registro conforme segue:
 --------------------------------------------------------------------------------------------------------------------
-insert into pessoa (nome) values ('Victor');
+insert into atleta (nome, modalidade) values ('Michael Jordan', 'Basquete');
 --------------------------------------------------------------------------------------------------------------------
-6) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
+6) O usuário deve inserir nessa tabela um registro conforme segue:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
+--------------------------------------------------------------------------------------------------------------------
+7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getGeneric = require('./getGeneric') //Modificar conforme necessidade
 
-class Pessoa
-{
-    constructor(id = null, nome = null)
-    {
-        this.id = id
-        this.nome = nome
-    }
-}
+let query = 'select * from atleta'
 
-getObject(new Pessoa(), res => {
-    console.log(res)
+getGeneric(query, null, resp => {
+    console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
 
 Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
 
-Resultado Esperado: espera-se que um objeto Pessoa com os atributos id igual à 1 e nome igual à Mauro seja
-impresso no console.
+Resultado Esperado: espera-se que um array, contendo 3 objetos, seja impresso no terminal. Cada objeto deverá possuir
+os atributos id, nome e modalidade, preenchidos conforme inserções realizadas nos passos 4, 5 e 6.
 
-Caso 4: Consulta em uma tabela inexistente (Automatizado).
-
-Pré-condições: 
-1) O usuário deve possuir acesso a um banco de dados Postgres.
-2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
-Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
---------------------------------------------------------------------------------------------------------------------
-module.exports = {
-    user: 'postgres',
-    host: 'localhost',
-    database: 'database',
-    password: 'password',
-    port: 5432 //your port
-}
---------------------------------------------------------------------------------------------------------------------
-3) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
---------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
-
-class Inexistente
-{
-
-}
-
-getObject(new Inexistente(), (res, err) => {
-    if(err)
-    {
-        throw err
-    }
-    else
-    {
-        console.log(res)
-    }
-})
---------------------------------------------------------------------------------------------------------------------
-
-Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
-
-Resultado Esperado: espera-se que uma exceção do tipo "relation does not exist" seja lançada ao console e que o programa seja abortado.
-
-Caso 5: Consulta em uma tabela existente buscando por campo inexistente (Automatizado).
+Caso 2: Execução de query parametrizada com 1 valor e com retorno (Automatizado)
 
 Pré-condições: 
 1) O usuário deve possuir acesso a um banco de dados Postgres.
@@ -196,36 +63,172 @@ module.exports = {
 --------------------------------------------------------------------------------------------------------------------
 3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
 --------------------------------------------------------------------------------------------------------------------
-create table pessoa (id serial primary key, nome varchar(50));
+create table atleta (id serial primary key, nome varchar(50), modalidade varchar(50));
 --------------------------------------------------------------------------------------------------------------------
-4) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
+4) O usuário deve inserir nessa tabela um registro conforme segue:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+insert into atleta (nome, modalidade) values ('Marta', 'Futebol');
+--------------------------------------------------------------------------------------------------------------------
+5) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Michael Jordan', 'Basquete');
+--------------------------------------------------------------------------------------------------------------------
+6) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
+--------------------------------------------------------------------------------------------------------------------
+7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getGeneric = require('./getGeneric') //Modificar conforme necessidade
 
-class Pessoa
-{
-    constructor(id = null, nome = null)
-    {
-        this.id = id
-        this.nome = nome
-    }
+let query = 'select * from atleta where modalidade = $1'
+let values = ['Futebol']
+
+getGeneric(query, values, resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um array, contendo 1 objeto, seja impresso no terminal. O objeto deverá possuir
+os atributos id preenchido conforme sequência gerada no banco de dados, nome igual à 'Marta' e modalidade igual a
+'Futebol'.
+
+Caso 3: Execução de query parametrizada com 2 valores e com retorno (Automatizado)
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
 }
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table atleta (id serial primary key, nome varchar(50), modalidade varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Marta', 'Futebol');
+--------------------------------------------------------------------------------------------------------------------
+5) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Michael Jordan', 'Basquete');
+--------------------------------------------------------------------------------------------------------------------
+6) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
+--------------------------------------------------------------------------------------------------------------------
+7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getGeneric = require('./getGeneric') //Modificar conforme necessidade
 
-let pessoa = new Pessoa()
-pessoa.inexistente = 'inexistente'
+let query = 'select * from atleta where modalidade in ($1, $2)'
+let values = ['Basquete', 'Poker']
 
-getObject(pessoa, (res, err) => {
+getGeneric(query, values, resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um array, contendo 2 objetos, seja impresso no terminal. Cada objeto deverá possuir
+os atributos id, nome e modalidade, preenchidos conforme inserções realizadas nos passos 5 e 6.
+
+Caso 4: Execução de query sem retorno (Automatizado)
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table musica (autor varchar(50), nome varchar(50), ano int);
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+
+let query = "insert into musica(autor, nome, ano) values ('John Lennon', 'Imagine', 1980)"
+
+getGeneric(query, null, resp => {
+    console.log(resp)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um array vazio seja impresso no terminal. Além disso, espera-se que um novo registro
+tenha sido incluído com sucesso na tabela musica do banco de dados.
+
+Caso 5: Execução de query parametrizada com número de parâmetros diferente dos valores informados (Automatizado)
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table atleta (id serial primary key, nome varchar(50), modalidade varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Marta', 'Futebol');
+--------------------------------------------------------------------------------------------------------------------
+5) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Michael Jordan', 'Basquete');
+--------------------------------------------------------------------------------------------------------------------
+6) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
+--------------------------------------------------------------------------------------------------------------------
+7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+
+let query = 'select * from atleta where modalidade = $1'
+let values = ['Poker', 'Daniel Negreanu']
+
+getGeneric(query, values, (resp, err) => {
     if(err)
     {
         throw err
-    }
-    else 
-    {
-        console.log(res)
     }
 })
 --------------------------------------------------------------------------------------------------------------------
 
 Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
 
-Resultado Esperado: espera-se que uma exceção de coluna inexistente seja lançada ao console e que o programa seja abortado.
+Resultado Esperado: espera-se que a seguinte exceção "bind message supplies 2 parameters, but prepared statement "" 
+requires 1" seja lançada no terminal.

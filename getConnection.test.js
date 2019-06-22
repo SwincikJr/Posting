@@ -23,14 +23,27 @@ test('Teste de conexão com configuraçoes incorretas (passadas como segundo par
         port: 0
     }
 
-    const cb = client => { client.end() }
-    
-    const testingGetConnection = () => {
-        getConnection(cb, config)
-        done()
+    let erro = false
+
+    const tryConnection = () => {
+        return new Promise((resolve, reject) => {
+            getConnection((client, error) => {
+                if(error)
+                {
+                    reject()
+                }
+                else
+                {
+                    client.end()
+                    resolve()
+                }
+            }, config)
+        })
     }
 
-    expect(testingGetConnection).toThrow()
+    return tryConnection().catch(() => { erro = true }).finally(() => {
+        expect(erro).toEqual(true)
+    })
 })
 
 test('Teste de conexão com configurações corretas (passadas como segundo parâmetro)', () => {

@@ -1,0 +1,73 @@
+Função: getGeneric
+
+Assinatura: getGeneric(query: any, values: any, callback: any, onConfig?: any): void
+
+Arquivo fonte: getGeneric.js
+
+Descrição: A função getGeneric realiza a execução de uma query genérica em um banco de dados Postgres. O parâmetro query deve receber exatamente a query 
+a ser executada. O parâmetro values deve receber um array contendo os valores que devem ser utilizados em uma query parametrizada, ou nulo, caso não exista
+nenhum. Caso a operação seja bem sucedida, a callback declarada no terceiro parâmetro é invocada, recebendo como parâmetro um array de objetos genéricos, 
+onde cada objeto representa uma linha da resposta da query executada, caso exista. Em caso de erro, a callback ainda será invocada, recebendo como segundo 
+parâmetro o erro ocorrido. O parâmetro onConfig é opcional e, caso preenchido, deve conter o objeto com os dados necessários para estabelecimento da conexão. 
+Caso onConfig seja omitido, serão utilizadas as informações contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de 
+getConnection).  
+
+Cuidados para o uso: Como Posting ORM é baseado no pacote node-postgres (pg), é possível passar uma query parametrizada para ser executada através da função
+getGeneric utilizando a sintaxe "$x" para indicar os locais da query que deverão ser substituídos pelos valores a serem passados como segundo parâmetro da
+função, para evitar, dessa forma, tentativas de ataques em sua aplicação por meio de SQL Injection, como será demonstrado na sessão Exemplos de Uso deste 
+documento. Para maiores informações sobre o pacote node-postgres, consulte documentação disponível na sessão Referências deste documento. É importante ressaltar 
+que, caso a query informada no primeiro parâmetro não seja uma query parametrizada, basta preencher o segundo parâmetro com "null" ou com um array vazio ("[]"), 
+para evitar erros durante a tentativa de execução da query. Além disso, a callback invocada após a execução da query sempre receberá como parâmetro um array,
+mesmo que a query executada não possua uma resposta. 
+
+Exemplos de uso:
+
+1)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+let query = 'select campo1, campo2, campo3 from tabela'
+
+getGeneric(query, null, (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
+}) // res será um array de objetos com os atributos campo1, campo2 e campo3
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Query parametrizada
+let query = 'select campo1, campo2, campo3 from tabela where campo1 = $1 and campo2 = $2'
+let values = ['value1', 'value2']
+
+getGeneric(query, values, (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
+}) // Na query, '$1' será substituído pelo primeiro item do array e '$2' será substituído pelo segundo item do array
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Create Table
+let query = 'create table tabela(campo1 varchar(50), campo2 varchar(50), campo3 varchar(50))'
+
+getGeneric(query, null, (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
+}) // Como a query executada não traz o resultado de uma consulta, res será um array vazio.
+// Porém, se a callback é invocada, significa que a execução foi bem sucedida, por tanto, teve efeito no banco de dados.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Referências:
+
+https://node-postgres.com/

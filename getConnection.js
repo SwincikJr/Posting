@@ -7,11 +7,11 @@ const getConnection = (callback, config = null) => {
     client.connect(error => {
         if (!error)
         {
-            callback(client)
+            callback(client, false)
         }
         else
         {
-            throw error
+            callback(null, error)
         }
     })
 }

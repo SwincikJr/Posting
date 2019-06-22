@@ -117,8 +117,15 @@ class Inexistente
     }
 }
 
-insertObject(new Inexistente(), resp => {
-    console.log(resp)
+insertObject(new Inexistente(), (resp, err) => {
+    if(err)
+    {
+        throw err
+    }
+    else
+    {
+        console.log(resp)
+    }
 })
 --------------------------------------------------------------------------------------------------------------------
 
@@ -158,8 +165,15 @@ class Aluno
     }
 }
 
-insertObject(new Aluno(), resp => {
-    console.log(resp)
+insertObject(new Aluno(), (resp, err) => {
+    if(err)
+    {
+        throw err
+    }
+    else
+    {
+        console.log(resp)
+    }
 })
 --------------------------------------------------------------------------------------------------------------------
 

@@ -56,25 +56,34 @@ const updateObject = (instance, callback, onConfig = null) => {
             values: values
         }
 
-        getConnection(client => {
-            client.query(query, (err, res) => {
-                if (err)
-                {
-                    throw err
-                }
-                else 
-                {
-                    callback(instance)
-                }
+        getConnection((client, error) => {
 
-                client.end()
+            if(!error)
+            {
+                client.query(query, (err, res) => {
 
-            })
+                    if (err)
+                    {
+                        callback(null, err)
+                    }
+                    else 
+                    {
+                        callback(instance, false)
+                    }
+    
+                    client.end()
+                })
+            }
+            else 
+            {
+                callback(null, error)
+            }
+
         }, onConfig)
     }
     else 
     {
-        callback(instance)
+        callback(instance, false)
     }
 }
 

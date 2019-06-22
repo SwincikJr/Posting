@@ -46,10 +46,26 @@ test('Consulta em uma tabela existente e muitos registros existentes.', () => {
 
 test('Consulta em uma tabela inexistente.', () => {
 
-    expect(() => {
-        getObject(new Inexistente(), resp => { return })
-        done()
-    }).toThrow()
+    let erro = false;
+
+    const tryGet = () => {
+        return new Promise((resolve, reject) => {
+            getObject(new Inexistente(), (resp, err) => {
+                if(err)
+                {
+                    reject()
+                }
+                else
+                {
+                    resolve()
+                }
+            })
+        })
+    }
+    
+    return tryGet()
+        .catch(() => { erro = true })
+        .finally(() => expect(erro).toEqual(true))
     
 })
 
@@ -58,9 +74,25 @@ test('Consulta em uma tabela existente buscando por campo inexistente', () => {
     let pessoa = new Pessoa()
     pessoa.inexistente = 'inexistente'
 
-    expect(() => {
-        getObject(pessoa, resp => { return })
-        done()
-    }).toThrow()
+    let erro = false;
+
+    const tryGet = () => {
+        return new Promise((resolve, reject) => {
+            getObject(pessoa, (resp, err) => {
+                if(err)
+                {
+                    reject()
+                }
+                else
+                {
+                    resolve()
+                }
+            })
+        })
+    }
+    
+    return tryGet()
+        .catch(() => { erro = true })
+        .finally(() => expect(erro).toEqual(true))
 
 })

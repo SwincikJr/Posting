@@ -48,9 +48,16 @@ exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
 const getConnection = require('./getConnection') //Modificar conforme necessidade
 
-getConnection(client => {
-    console.log('Doing something...')
-    client.end()
+getConnection((client, error) => {
+    if(!error)
+    {
+        console.log('Doing something...')
+        client.end()
+    }
+    else 
+    {
+        throw error
+    }
 })
 --------------------------------------------------------------------------------------------------------------------
 

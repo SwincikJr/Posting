@@ -6,9 +6,9 @@ Arquivo fonte: inserObject.js
 
 Descrição: A função insertObject realiza a inserção dos dados de um objeto em uma tabela de um banco de dados Postgres. O parâmetro instance
 deve receber um objeto que contenha os dados que se deseja inserir. Caso a operação seja bem sucedida, a callback declarada no segundo parâmetro é
-invocada, recebendo o objeto inserido como parâmetro. O parâmetro onConfig é opcional e, caso preenchido, deve conter o objeto com os dados 
-necessários para estabelecimento da conexão. Caso onConfig seja omitido, serão utilizadas as informações contidas no arquivo postingConfig.js
-para estabelecimento da conexão (veja a documentação de getConnection).  
+invocada, recebendo o objeto inserido como parâmetro. Em caso de erro, a callback ainda é invocada, recebendo o erro ocorrido como segundo parâmetro.
+O parâmetro onConfig é opcional e, caso preenchido, deve conter o objeto com os dados necessários para estabelecimento da conexão. Caso onConfig 
+seja omitido, serão utilizadas as informações contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de getConnection).  
 
 Cuidados para o uso: O objeto passado no parâmetro instance deve ser instância de uma Classe cujo nome seja igual ao nome da tabela do banco de
 dados em que se deseje realizar a inserção. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos dessa tabela, com
@@ -31,8 +31,11 @@ class Teste
     }
 }
 
-insertObject(new Teste(1, 2, 'Mauro'), (res) => {
-    console.log(res)
+insertObject(new Teste(1, 2, 'Mauro'), (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
 }) // Query gerada: insert into teste (id, seq, campo) values (1, 2, 'Mauro')
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -50,8 +53,11 @@ class Teste extends Posting
     }
 }
 
-insertObject(new Teste(null, null, 'Mauro'), (res) => {
-    console.log(res)
+insertObject(new Teste(null, null, 'Mauro'), (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
 }) // Query gerada: insert into teste (campo) values ('Mauro') returning id, seq
 // Os valores de retorno da query são usados para preencher o objeto antes de devolvê-lo à callback
 // Neste caso, mesmo que os valores de id e seq do objeto estivessem previamente preenchidos, seriam desonsiderados e substituídos pelo retorno da query

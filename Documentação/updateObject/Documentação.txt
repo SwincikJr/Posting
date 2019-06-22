@@ -6,10 +6,10 @@ Arquivo fonte: updateObject.js
 
 Descrição: A função updateObject realiza uma operação de atualização em um ou mais registros de um banco de dados Postgres. O parâmetro 
 instance deve receber um objeto contendo os dados atualizados que devem ser salvos no banco de dados. Caso a operação seja bem sucedida, a
-callback declarada no segundo parâmetro é invocada, recebendo como parâmetro o mesmo objeto passado para a função updateObject. O parâmetro
-onConfig é opcional e, caso preenchido, deve conter o objeto com os dados necessários para estabelecimento da conexão. Caso onConfig seja 
-omitido, serão utilizadas as informações contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de 
-getConnection). 
+callback declarada no segundo parâmetro é invocada, recebendo como parâmetro o mesmo objeto passado para a função updateObject. Em caso de
+erro, a callback ainda será invocada, recebendo como segundo parâmetro o erro ocorrido. O parâmetro onConfig é opcional e, caso preenchido, 
+deve conter o objeto com os dados necessários para estabelecimento da conexão. Caso onConfig seja omitido, serão utilizadas as informações 
+contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de getConnection). 
 
 Cuidados para o uso: O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do 
 banco de dados em que se deseja realizar a alteração. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos 
@@ -41,7 +41,10 @@ class Aluno extends Posting
     }
 }
 
-updateObject(new Aluno(1, 'Outro auto', 'Mauro', 'ADS'), (res) => {
-    console.log(res)
+updateObject(new Aluno(1, 'Outro auto', 'Mauro', 'ADS'), (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
 }) // Query gerada: update Aluno set nome = 'Mauro', curso = 'ADS' where id = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------------------

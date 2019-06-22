@@ -32,22 +32,29 @@ const deleteObject = (instance, callback, onConfig = null) => {
         values: values
     }
 
-    getConnection(client => {
+    getConnection((client, error) => {
 
-        client.query(query, (err, res) => {
+        if(!error)
+        {
+            client.query(query, (err, res) => {
             
-            if (err)
-            {
-                throw err
-            }
-            else 
-            {
-                callback(instance)
-            }
-
-            client.end()
-        })
-
+                if (err)
+                {
+                    callback(null, err)
+                }
+                else 
+                {
+                    callback(instance, false)
+                }
+    
+                client.end()
+            })
+        }
+        else
+        {
+            callback(null, error)
+        }
+        
     }, onConfig)
 }
 

@@ -55,27 +55,33 @@ const insertObject = (instance, callback, onConfig = null) => {
         values: values
     }
 
-    getConnection(client => {
-        client.query(query, (err, res) => {
-            if (err)
-            {
-                throw err
-            }
-            else
-            {
-                if(autos.length > 0)
+    getConnection((client, error) => {
+        if(!error)
+        {
+            client.query(query, (err, res) => {
+                if (err)
                 {
-                    autos.forEach(a => {
-                        instance[a] = res.rows[0][a]
-                    })
+                    callback(null, err)
                 }
-
-                callback(instance)
-            }
-
-            client.end()
-        })
-        
+                else
+                {
+                    if(autos.length > 0)
+                    {
+                        autos.forEach(a => {
+                            instance[a] = res.rows[0][a]
+                        })
+                    }
+    
+                    callback(instance, false)
+                }
+    
+                client.end()
+            })
+        }
+        else
+        {
+            callback(null, error)
+        }
     }, onConfig)
 }
 

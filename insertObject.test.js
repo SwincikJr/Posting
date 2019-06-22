@@ -1,8 +1,8 @@
 const Posting = require('./Posting')
 const insertObject = require('./insertObject')
 
-// Consulte os Casos de Usos automatizados de insertObject para pré-condições
-// Documentação/insertObject/Casos de Uso.txt
+// Consulte os Casos de Usos automatizados de insertObject para prï¿½-condiï¿½ï¿½es
+// Documentaï¿½ï¿½o/insertObject/Casos de Uso.txt
 
 test('Inserir dado em tabela existente', () => {
 
@@ -50,6 +50,8 @@ test('Inserir dado em tabela existente somente com auto', () => {
 
 test('Inserir dado em tabela inexistente', () => {
 
+    let erro = false
+
     class Inexistente
     {
         constructor()
@@ -58,14 +60,30 @@ test('Inserir dado em tabela inexistente', () => {
         }
     }
 
-    expect(() => {
-        insertObject(new Inexistente(), resp => { return })
-        done()
-    }).toThrow()
+    const tryInsert = () => {
+        return new Promise((resolve, reject) => {
+            insertObject(new Inexistente(), (resp, error) => {
+                if(error)
+                {
+                    reject()
+                }
+                else
+                {
+                    resolve()
+                }
+            })
+        })
+    }
+
+    return tryInsert()
+        .catch(() => { erro = true })
+        .finally(() => { expect(erro).toEqual(true) })
 
 })
 
 test('Inserir dado em tabela existente e campo inexistente', () => {
+
+    let erro = false
 
     class Aluno 
     {
@@ -75,14 +93,31 @@ test('Inserir dado em tabela existente e campo inexistente', () => {
         }
     }
 
+    const tryInsert = () => {
+        return new Promise((resolve, reject) => {
+            insertObject(new Aluno(), (res, err) => {
+                if(err)
+                {
+                    reject()
+                }
+                else
+                {
+                    resolve()
+                }
+            })
+        })
+    }
+
     expect(() => {
         insertObject(new Aluno(), resp => { return })
         done()
     }).toThrow()
 
+    return tryInsert().catch(() => { erro = true }).finally(() => expect(erro).toEqual(true))
+
 })
 
-test('Inserir dados em tabela existente, campos existentes porém com tipo de dado diferente da tabela', () => {
+test('Inserir dados em tabela existente, campos existentes porï¿½m com tipo de dado diferente da tabela', () => {
 
     class Aluno extends Posting
     {

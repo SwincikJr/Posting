@@ -19,25 +19,34 @@ const getObject = (instance, callback, onConfig = null) => {
         values: values
     }
 
-    getConnection(client => {
-        client.query(query, (err, res) => {
-            if (err)
-            {
-                throw err
-            }
-            else if (res.rows.length == 0)
-            {
-                callback(null)
-            }
-            else
-            {
-                Object.getOwnPropertyNames(instance).forEach(element => {
-                    instance[element] = res.rows[0][element]
-                })
-                callback(instance)
-            }
-            client.end()
-        })   
+    getConnection((client, error) => {
+
+        if(!error)
+        {
+            client.query(query, (err, res) => {
+                if (err)
+                {
+                    callback(null, err)
+                }
+                else if (res.rows.length == 0)
+                {
+                    callback(null, false)
+                }
+                else
+                {
+                    Object.getOwnPropertyNames(instance).forEach(element => {
+                        instance[element] = res.rows[0][element]
+                    })
+                    callback(instance, false)
+                }
+                client.end()
+            }) 
+        } 
+        else 
+        {
+            callback(null, error)
+        } 
+        
     }, onConfig)
 }
 

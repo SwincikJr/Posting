@@ -6,8 +6,9 @@ Arquivo fonte: getConnection.js
 
 Descrição: A função getConnection estabelece uma conexão com um banco de dados Postgres à partir das informações de conexão disponiblizadas 
 no arquivo postingConfig.js no mesmo diretório do arquivo fonte getConnection.js ou no objeto de configuração passado como segundo parâmetro 
-da função. Caso a conexão consiga ser estabelecida sem erros, a função invoca uma callback, passando-lhe como argumento o objeto client 
-instanciado para a conexão. Caso haja falha no momento da conexão, o erro é lançado ao console e o programa é abortado.
+da função. Caso a conexão consiga ser estabelecida sem erros, a função invoca uma callback, passando-lhe como primeiro argumento o objeto 
+client instanciado para a conexão. Caso haja falha no momento da conexão, a callback será invocada recebedo o erro ocorrido como segundo
+parâmetro.
 
 Cuidados para o uso: É importante ressaltar a necessidade do arquivo postingConfig.js no mesmo diretório do arquivo getConnection.js caso não 
 seja passado nenhum objeto de configuração como segundo parâmetro da função. O arquivo postingConfig.js deve exportar de seu módulo um objeto 
@@ -30,18 +31,21 @@ Exemplos de uso:
 ------------------------------------------------------------------------------------------------------------------------------------------------
 const getConnection = require('./getConnection')
 
-getConnection(client => {
-    client.query('SELECT 1 as NUMERO', (err, res) => {
-        if (!err)
-        {
-            console.log('Query ok...')
+getConnection((client, error) => {
+    if(!error)
+    {
+        client.query('SELECT 1 as NUMERO', (err, res) => {
+            if (!err)
+            {
+                console.log('Query ok...')
+            }
+            else 
+            {
+                console.log('Erro na query...')
+            }     
+            client.end()
         }
-        else 
-        {
-            console.log('Erro na query...')
-        }     
-        client.end()
-    })
+    }
 }) // Se o segundo parâmetro é omitido, a função buscará pelo arquivo postingConfig.js 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,18 +53,21 @@ getConnection(client => {
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 const getConnection = require('./getConnection')
 
-getConnection(client => {
-    client.query('SELECT 1 as NUMERO', (err, res) => {
-        if (!err)
-        {
-            console.log('Query ok...')
-        }
-        else 
-        {
-            console.log('Erro na query...')
-        }     
-        client.end()
-    })
+getConnection((client, error) => {
+    if(!error)
+    {
+        client.query('SELECT 1 as NUMERO', (err, res) => {
+            if (!err)
+            {
+                console.log('Query ok...')
+            }
+            else 
+            {
+                console.log('Erro na query...')
+            }     
+            client.end()
+        })
+    }
 }, {
 	user: 'user',
 	host: 'localhost',

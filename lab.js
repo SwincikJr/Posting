@@ -4,6 +4,7 @@ const insertObject = require('./insertObject')
 const updateObject = require('./updateObject')
 const Posting = require('./Posting')
 const deleteObject = require('./deleteObject')
+const getGeneric = require('./getGeneric')
 
 getConnection(client => {
     console.log('Doing something...')
@@ -162,4 +163,34 @@ class Livro extends Posting
 
 deleteObject(new Livro(5, 'titulo do livro', null), resp => {
     console.log(resp)
+})
+
+let query = 'select * from atleta'
+
+getGeneric(query, null, resp => {
+    console.log(resp)
+})
+
+query = 'select * from atleta where modalidade = $1'
+let values = ['Futebol']
+
+getGeneric(query, values, resp => {
+    console.log(resp)
+})
+
+query = 'select * from atleta where modalidade in ($1, $2)'
+values = ['Basquete', 'Poker']
+
+getGeneric(query, values, resp => {
+    console.log(resp)
+})
+
+let query = 'select * from atleta where modalidade = $1'
+let values = ['Poker', 'Daniel Negreanu']
+
+getGeneric(query, values, (resp, err) => {
+    if(err)
+    {
+        throw err
+    }
 })
