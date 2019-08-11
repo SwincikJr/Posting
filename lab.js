@@ -1,3 +1,4 @@
+/*
 const getConnection = require('./getConnection')
 const getObject = require('./getObject')
 const insertObject = require('./insertObject')
@@ -192,5 +193,44 @@ getGeneric(query, values, (resp, err) => {
     if(err)
     {
         throw err
+    }
+})
+*/
+
+const orm = require('./index')
+
+class Aluno extends orm.PostingClass
+{
+    constructor(id = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.nome = nome
+        this.curso = curso
+        Object.defineProperty(this, 'teste', {
+            value: 'teste2',
+            enumerable: false,
+            configurable: true
+        })
+        this.setAuto('id')
+        this.setKey('id')
+    }
+}
+
+const aluno = new Aluno(null, 'Mauro', 'ADS')
+
+console.log(aluno)
+console.log(aluno.teste)
+
+orm.getObject(aluno, (resp, err) => {
+    if(err)
+    {
+        console.log(err)
+    }
+    else
+    {
+        console.log(resp)
+        console.log(resp._Auto)
+        console.log(resp.teste)
     }
 })
