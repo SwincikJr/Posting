@@ -197,6 +197,7 @@ getGeneric(query, values, (resp, err) => {
 })
 */
 
+/*
 const orm = require('./index')
 
 class Aluno extends orm.PostingClass
@@ -233,4 +234,65 @@ orm.getObject(aluno, (resp, err) => {
         console.log(resp._Auto)
         console.log(resp.teste)
     }
+})
+
+*/
+
+/*
+const getObjects = require('./getObjects')
+
+class Jogo
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObjects(new Jogo(1, 'Uncharted'), (res, err) => {
+    
+    if (!err)
+    {
+        console.log(res)
+    }
+    
+})
+*/
+
+/*
+const getObjects = require('./getObjects')
+
+class Jogo
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObjects(new Jogo(), (res, err) => {
+    
+    if (!err)
+    {
+        console.log(res)
+    }
+    
+})
+*/
+
+const getObjects = require('./getObjects')
+
+class Pessoa
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObjects(new Pessoa(null, 'Inexistente'), res => {
+    console.log(res)
 })

@@ -31,7 +31,7 @@ const getObjects = (instance, callback, onConfig = null) => {
                 }
                 else if (res.rows.length == 0)
                 {
-                    callback(null, false);
+                    callback([], false);
                 }
                 else
                 {            

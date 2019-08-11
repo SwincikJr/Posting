@@ -133,7 +133,7 @@ class Pessoa
     }
 }
 
-getObjects(new Pessoa(), res => {
+getObjects(new Pessoa(null, 'Inexistente'), res => {
     console.log(res)
 })
 --------------------------------------------------------------------------------------------------------------------

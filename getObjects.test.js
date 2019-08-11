@@ -49,7 +49,7 @@ test('Consulta em uma tabela com dois registros e retornando os dois.', () => {
 test('Consulta em uma tabela existente e nenhum registro existente.', () => {
 
     const callback = data => {
-        expect(data).toEqual(null)
+        expect(data).toEqual([])
     }
     
     getObjects(new Jogo(null, 'Inexistente'), callback)
