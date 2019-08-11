@@ -23,7 +23,7 @@ insert into pessoa (nome) values ('Mauro');
 --------------------------------------------------------------------------------------------------------------------
 5) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+const orm = require('./index')
 
 class Pessoa
 {
@@ -34,7 +34,7 @@ class Pessoa
     }
 }
 
-getObject(new Pessoa(1, null), res => {
+orm.getObject(new Pessoa(1, null), res => {
     console.log(res)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ insert into pessoa (nome) values ('Mauro');
 --------------------------------------------------------------------------------------------------------------------
 5) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+const orm = require('./index')
 
 class Pessoa
 {
@@ -80,7 +80,7 @@ class Pessoa
     }
 }
 
-getObject(new Pessoa(null, 'Inexistente'), res => {
+orm.getObject(new Pessoa(null, 'Inexistente'), res => {
     console.log(res)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ insert into pessoa (nome) values ('Victor');
 --------------------------------------------------------------------------------------------------------------------
 6) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+const orm = require('./index')
 
 class Pessoa
 {
@@ -129,7 +129,7 @@ class Pessoa
     }
 }
 
-getObject(new Pessoa(), res => {
+orm.getObject(new Pessoa(), res => {
     console.log(res)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -156,14 +156,14 @@ module.exports = {
 --------------------------------------------------------------------------------------------------------------------
 3) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+const orm = require('./index')
 
 class Inexistente
 {
 
 }
 
-getObject(new Inexistente(), (res, err) => {
+orm.getObject(new Inexistente(), (res, err) => {
     if(err)
     {
         throw err
@@ -200,7 +200,7 @@ create table pessoa (id serial primary key, nome varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função getObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
+const orm = require('./index')
 
 class Pessoa
 {
@@ -214,7 +214,7 @@ class Pessoa
 let pessoa = new Pessoa()
 pessoa.inexistente = 'inexistente'
 
-getObject(pessoa, (res, err) => {
+orm.getObject(pessoa, (res, err) => {
     if(err)
     {
         throw err

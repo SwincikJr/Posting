@@ -1,4 +1,4 @@
-const getObjects = require('./getObjects')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de getObject para pré-condições
 // Documentação/getObject/Casos de Uso.txt
@@ -27,7 +27,7 @@ test('Consulta em uma tabela com dois registros, mas retornando apenas um.', () 
         expect(data).toEqual(jogo)
     }
     
-    getObjects(new Jogo(1, 'Uncharted'), callback)
+    orm.getObjects(new Jogo(1, 'Uncharted'), callback)
 })
 
 
@@ -42,7 +42,7 @@ test('Consulta em uma tabela com dois registros e retornando os dois.', () => {
         expect(data).toEqual(expected)
     }
     
-    getObjects(new Jogo(), callback)
+    orm.getObjects(new Jogo(), callback)
 })
 
 
@@ -52,7 +52,7 @@ test('Consulta em uma tabela existente e nenhum registro existente.', () => {
         expect(data).toEqual([])
     }
     
-    getObjects(new Jogo(null, 'Inexistente'), callback)
+    orm.getObjects(new Jogo(null, 'Inexistente'), callback)
 })
 
 test('Consulta em uma tabela inexistente.', () => {
@@ -61,7 +61,7 @@ test('Consulta em uma tabela inexistente.', () => {
 
     const tryGet = () => {
         return new Promise((resolve, reject) => {
-            getObjects(new Inexistente(), (resp, err) => {
+            orm.getObjects(new Inexistente(), (resp, err) => {
                 if (err)
                 {
                     reject()
@@ -88,7 +88,7 @@ test('Consulta em uma tabela existente buscando por campo inexistente', () => {
 
     const tryGet = () => {
         return new Promise((resolve, reject) => {
-            getObjects(jogo, (resp, err) => {
+            orm.getObjects(jogo, (resp, err) => {
                 if(err)
                 {
                     reject()

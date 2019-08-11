@@ -1,4 +1,4 @@
-const getObject = require('./getObject')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de getObject para pré-condições
 // Documentação/getObject/Casos de Uso.txt
@@ -23,7 +23,7 @@ test('Consulta em uma tabela existente e um registro existente.', () => {
         expect(data).toEqual(new Pessoa(1, 'Mauro'))
     }
     
-    getObject(new Pessoa(1, null), callback)
+    orm.getObject(new Pessoa(1, null), callback)
 })
 
 test('Consulta em uma tabela existente e nenhum registro existente.', () => {
@@ -32,7 +32,7 @@ test('Consulta em uma tabela existente e nenhum registro existente.', () => {
         expect(data).toEqual(null)
     }
     
-    getObject(new Pessoa(null, 'Inexistente'), callback)
+    orm.getObject(new Pessoa(null, 'Inexistente'), callback)
 })
 
 test('Consulta em uma tabela existente e muitos registros existentes.', () => {
@@ -41,7 +41,7 @@ test('Consulta em uma tabela existente e muitos registros existentes.', () => {
         expect(data).toEqual(new Pessoa(1, 'Mauro'))
     }
     
-    getObject(new Pessoa(), callback)
+    orm.getObject(new Pessoa(), callback)
 })
 
 test('Consulta em uma tabela inexistente.', () => {
@@ -50,7 +50,7 @@ test('Consulta em uma tabela inexistente.', () => {
 
     const tryGet = () => {
         return new Promise((resolve, reject) => {
-            getObject(new Inexistente(), (resp, err) => {
+            orm.getObject(new Inexistente(), (resp, err) => {
                 if(err)
                 {
                     reject()
@@ -78,7 +78,7 @@ test('Consulta em uma tabela existente buscando por campo inexistente', () => {
 
     const tryGet = () => {
         return new Promise((resolve, reject) => {
-            getObject(pessoa, (resp, err) => {
+            orm.getObject(pessoa, (resp, err) => {
                 if(err)
                 {
                     reject()

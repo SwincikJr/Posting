@@ -1,4 +1,4 @@
-const getGeneric = require('./getGeneric')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de getGeneric para pré-condições
 // Documentação/getGeneric/Casos de Uso.txt 
@@ -13,7 +13,7 @@ test('Execução de query não parametrizada com retorno', () => {
         { nome: 'Daniel Negreanu', modalidade: 'Poker' } 
     ]
 
-    getGeneric(query, null, resp => {
+    orm.getGeneric(query, null, resp => {
         expect(resp).toEqual(expected)
     })
 
@@ -26,7 +26,7 @@ test('Execução de query parametrizada com 1 valor e com retorno', () => {
 
     let expected = [{ nome: 'Marta', modalidade: 'Futebol' }]
 
-    getGeneric(query, values, resp => {
+    orm.getGeneric(query, values, resp => {
         expect(resp).toEqual(expected)
     })
 
@@ -42,7 +42,7 @@ test('Execução de query parametrizada com 2 valores e com retorno', () => {
         { nome: 'Daniel Negreanu', modalidade: 'Poker' } 
     ]
 
-    getGeneric(query, values, resp => {
+    orm.getGeneric(query, values, resp => {
         expect(resp).toEqual(expected)
     })
 
@@ -62,7 +62,7 @@ test('Execução de query sem retorno', () => {
 
     const deleteAll = () => {
         return new Promise((resolve, reject) => {
-            getGeneric(query1, null, resp => {
+            orm.getGeneric(query1, null, resp => {
                 executeQuery().then(() => resolve())
             })
         })
@@ -70,7 +70,7 @@ test('Execução de query sem retorno', () => {
 
     const executeQuery = () => {
         return new Promise((resolve, reject) => {
-            getGeneric(query2, null, resp => {
+            orm.getGeneric(query2, null, resp => {
                 result1 = resp
                 checkInserted().then(() => resolve())
             })
@@ -79,7 +79,7 @@ test('Execução de query sem retorno', () => {
 
     const checkInserted = () => {
         return new Promise((resolve, reject) => {
-            getGeneric(query3, null, resp => {
+            orm.getGeneric(query3, null, resp => {
                 result2 = resp
                 resolve()
             })
@@ -101,7 +101,7 @@ test('Execução de query parametrizada com número de parâmetros diferente dos
 
     const executeQuery = () => {
         return new Promise((resolve, reject) => {
-            getGeneric(query, values, (resp, error) => {
+            orm.getGeneric(query, values, (resp, error) => {
                 if(error)
                 {
                     reject(error)

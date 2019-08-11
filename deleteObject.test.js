@@ -1,12 +1,9 @@
-const insertObject = require('./insertObject')
-const Posting = require('./Posting')
-const deleteObject = require('./deleteObject')
-const getObject = require('./getObject')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de deleteObject para pré-condições
 // Documentação/deleteObject/Casos de Uso.txt 
 
-class Cliente extends Posting
+class Cliente extends orm.Posting
 {
     constructor(id = null, nome = null)
     {
@@ -17,7 +14,7 @@ class Cliente extends Posting
     }
 }
 
-class Documento extends Posting
+class Documento extends orm.Posting
 {
     constructor(id = null, seq = null, titulo = null)
     {
@@ -30,7 +27,7 @@ class Documento extends Posting
     }
 }
 
-class Cena extends Posting
+class Cena extends orm.Posting
 {
     constructor(id = null, seq = null, titulo = null)
     {
@@ -57,7 +54,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const insertFirst = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg1, resp => {
+            orm.insertObject(reg1, resp => {
                 reg1.id = resp.id
                 insertSecond().then(() => resolve())
             })
@@ -66,7 +63,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const insertSecond = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg2, resp => {
+            orm.insertObject(reg2, resp => {
                 reg2.id = resp.id
                 insertThird().then(() => resolve())
             })
@@ -75,7 +72,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const insertThird = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg3, resp => {
+            orm.insertObject(reg3, resp => {
                 reg3.id = resp.id
                 startTest().then(() => resolve())
             })
@@ -84,7 +81,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const startTest = () => {
         return new Promise((resolve, reject) => {
-            deleteObject(reg1, resp => {
+            orm.deleteObject(reg1, resp => {
                 checkFirst().then(() => resolve())
             })
         })
@@ -92,7 +89,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const checkFirst = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg1, resp => {
+            orm.getObject(reg1, resp => {
                 check1 = resp
                 checkSecond().then(() => resolve())
             })
@@ -101,7 +98,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const checkSecond = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg2, resp => {
+            orm.getObject(reg2, resp => {
                 check2 = resp
                 checkThird().then(() => resolve())
             })
@@ -110,7 +107,7 @@ test('Deleção de objeto sem chave declarada', () => {
 
     const checkThird = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg3, resp => {
+            orm.getObject(reg3, resp => {
                 check3 = resp
                 resolve()
             })
@@ -139,7 +136,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const insertFirst = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg1, resp => {
+            orm.insertObject(reg1, resp => {
                 reg1.id = resp.id
                 insertSecond().then(() => resolve())
             })
@@ -148,7 +145,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const insertSecond = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg2, resp => {
+            orm.insertObject(reg2, resp => {
                 reg2.id = resp.id
                 insertThird().then(() => resolve())
             })
@@ -157,7 +154,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const insertThird = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg3, resp => {
+            orm.insertObject(reg3, resp => {
                 reg3.id = resp.id
                 startTest().then(() => resolve())
             })
@@ -166,7 +163,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const startTest = () => {
         return new Promise((resolve, reject) => {
-            deleteObject(reg1, resp => {
+            orm.deleteObject(reg1, resp => {
                 checkFirst().then(() => resolve())
             })
         })
@@ -174,7 +171,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const checkFirst = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg1, resp => {
+            orm.getObject(reg1, resp => {
                 check1 = resp
                 checkSecond().then(() => resolve())
             })
@@ -183,7 +180,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const checkSecond = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg2, resp => {
+            orm.getObject(reg2, resp => {
                 check2 = resp
                 checkThird().then(() => resolve())
             })
@@ -192,7 +189,7 @@ test('Deleção de objeto com chave declarada e sem garantia de unicidade', () =
 
     const checkThird = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg3, resp => {
+            orm.getObject(reg3, resp => {
                 check3 = resp
                 resolve()
             })
@@ -221,7 +218,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const insertFirst = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg1, resp => {
+            orm.insertObject(reg1, resp => {
                 reg1.id = resp.id
                 insertSecond().then(() => resolve())
             })
@@ -230,7 +227,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const insertSecond = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg2, resp => {
+            orm.insertObject(reg2, resp => {
                 reg2.id = resp.id
                 insertThird().then(() => resolve())
             })
@@ -239,7 +236,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const insertThird = () => {
         return new Promise((resolve, reject) => {
-            insertObject(reg3, resp => {
+            orm.insertObject(reg3, resp => {
                 reg3.id = resp.id
                 startTest().then(() => resolve())
             })
@@ -248,7 +245,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const startTest = () => {
         return new Promise((resolve, reject) => {
-            deleteObject(reg1, resp => {
+            orm.deleteObject(reg1, resp => {
                 checkFirst().then(() => resolve())
             })
         })
@@ -256,7 +253,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const checkFirst = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg1, resp => {
+            orm.getObject(reg1, resp => {
                 check1 = resp
                 checkSecond().then(() => resolve())
             })
@@ -265,7 +262,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const checkSecond = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg2, resp => {
+            orm.getObject(reg2, resp => {
                 check2 = resp
                 checkThird().then(() => resolve())
             })
@@ -274,7 +271,7 @@ test('Deleção de objeto com chave declarada e com garantia de unicidade', () =
 
     const checkThird = () => {
         return new Promise((resolve, reject) => {
-            getObject(reg3, resp => {
+            orm.getObject(reg3, resp => {
                 check3 = resp
                 resolve()
             })

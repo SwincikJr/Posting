@@ -3,9 +3,9 @@ Caso 1: Uso correto de setAuto() (Automatizado).
 Pré-condições: 
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -31,9 +31,9 @@ Caso 2: Nova instância de classe herdeira de Posting (Automatizado).
 Pré-condições: 
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -58,9 +58,9 @@ Caso 3: Tentativa de inclusão de propriedade inexistente através de setAuto() 
 Pré-condições:  
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -86,9 +86,9 @@ Caso 4: Tentativa de alteração da propriedade _Auto sem utilizar setAuto() (Au
 Pré-condições: 
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -114,9 +114,9 @@ Caso 5: Uso correto de setKey() (Automatizado).
 Pré-condições: 
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -142,9 +142,9 @@ Caso 6: Nova instância de classe herdeira de Posting (Automatizado).
 Pré-condições: 
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -169,9 +169,9 @@ Caso 7: Tentativa de inclusão de propriedade inexistente através de setKey() (
 Pré-condições:  
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {
@@ -197,9 +197,9 @@ Caso 8: Tentativa de alteração da propriedade _Auto sem utilizar setKey() (Aut
 Pré-condições: 
 1) O usuário deve criar um arquivo lab.js e utilizar a classe Posting como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {

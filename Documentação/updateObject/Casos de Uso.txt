@@ -19,12 +19,9 @@ create table carro(id serial primary key, marca varchar(50), linha varchar(50), 
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função updateObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
-const insertObject = require('./insertObject')
-const updateObject = require('./updateObject')
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Carro extends Posting
+class Carro extends orm.Posting
 {
     constructor(id = null, marca = null, linha = null, modelo = null, ano_modelo = null)
     {
@@ -42,16 +39,16 @@ let carros = []
 
 const altera = () => {
     carros[0].ano_modelo = '2015'
-    updateObject(carros[0], resp => {
-        getObject(new Carro(carros[1].id), resp => {
+    orm.updateObject(carros[0], resp => {
+        orm.getObject(new Carro(carros[1].id), resp => {
             console.log(resp)
         })
     })
 }
 
-insertObject(new Carro(null, 'GM', 'Onix', '1.4 Flex', '2014'), resp => { 
+orm.insertObject(new Carro(null, 'GM', 'Onix', '1.4 Flex', '2014'), resp => { 
     carros.push(resp) 
-    insertObject(new Carro(null, 'GM', 'Celta', '1.0 Flex', '2009'), resp => { 
+    orm.insertObject(new Carro(null, 'GM', 'Celta', '1.0 Flex', '2009'), resp => { 
         carros.push(resp) 
         altera()
     })
@@ -87,12 +84,9 @@ create table filial(id serial primary key, logradouro varchar(50), endereco varc
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função updateObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
-const insertObject = require('./insertObject')
-const updateObject = require('./updateObject')
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Filial extends Posting
+class Filial extends orm.Posting
 {
     constructor(id = null, logradouro = null, endereco = null, numero = null, bairro = null)
     {
@@ -107,13 +101,13 @@ class Filial extends Posting
     }
 }
 
-insertObject(new Filial(null, 'Rua', 'das Conchas', 10, 'Vila Aurora'), resp => {
+orm.insertObject(new Filial(null, 'Rua', 'das Conchas', 10, 'Vila Aurora'), resp => {
     resp.logradouro = 'Avenida'
     resp.endereco = 'da Nação'
     resp.numero = 1012
     resp.bairro = 'Pátria Amada'
-    updateObject(resp, resp => {
-        getObject(new Filial(resp.id), resp => {
+    orm.updateObject(resp, resp => {
+        orm.getObject(new Filial(resp.id), resp => {
             console.log(resp)
         })
     })
@@ -148,12 +142,9 @@ create table conta(id serial primary key, email varchar(50), senha varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função updateObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getObject = require('./getObject')
-const insertObject = require('./insertObject')
-const updateObject = require('./updateObject')
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Conta extends Posting
+class Conta extends orm.Posting
 {
     constructor(id = null, email = null, senha = null)
     {
@@ -166,10 +157,10 @@ class Conta extends Posting
     }
 }
 
-insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
+orm.insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
     resp.senha = 'password02'
-    updateObject(resp, resp => {
-        getObject(new Conta(resp.id), resp => {
+    orm.updateObject(resp, resp => {
+        orm.getObject(new Conta(resp.id), resp => {
             console.log(resp)
         })
     })

@@ -24,10 +24,11 @@ Exemplos de uso:
 
 1)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
 
 let query = 'select campo1, campo2, campo3 from tabela'
 
-getGeneric(query, null, (res, err) => {
+orm.getGeneric(query, null, (res, err) => {
     if(!err)
     {
         console.log(res)
@@ -38,12 +39,13 @@ getGeneric(query, null, (res, err) => {
 
 2)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
 
 // Query parametrizada
 let query = 'select campo1, campo2, campo3 from tabela where campo1 = $1 and campo2 = $2'
 let values = ['value1', 'value2']
 
-getGeneric(query, values, (res, err) => {
+orm.getGeneric(query, values, (res, err) => {
     if(!err)
     {
         console.log(res)
@@ -54,11 +56,12 @@ getGeneric(query, values, (res, err) => {
 
 3)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
 
 // Create Table
 let query = 'create table tabela(campo1 varchar(50), campo2 varchar(50), campo3 varchar(50))'
 
-getGeneric(query, null, (res, err) => {
+orm.getGeneric(query, null, (res, err) => {
     if(!err)
     {
         console.log(res)

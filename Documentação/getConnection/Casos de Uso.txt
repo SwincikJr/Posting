@@ -16,9 +16,9 @@ module.exports = {
 3) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection') //Modificar conforme necessidade
+const orm = require('./index')
 
-getConnection(client => {
+orm.getConnection(client => {
     console.log('Doing something...')
     client.end()
 })
@@ -46,9 +46,9 @@ module.exports = {
 3) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection') //Modificar conforme necessidade
+const orm = require('./index')
 
-getConnection((client, error) => {
+orm.getConnection((client, error) => {
     if(!error)
     {
         console.log('Doing something...')
@@ -72,9 +72,9 @@ Pré-condições:
 2) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection') //Modificar conforme necessidade
+const orm = require('./index')
 
-getConnection(client => {
+orm.getConnection(client => {
     console.log('Doing something...')
     client.end()
 })
@@ -91,9 +91,9 @@ Pré-condições:
 2) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection') //Modificar conforme necessidade
+const orm = require('./index')
 
-getConnection(client => {
+orm.getConnection(client => {
     console.log('Doing something...')
     client.end()
 }, {
@@ -116,9 +116,9 @@ Pré-condições:
 2) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection') //Modificar conforme necessidade
+const orm = require('./index')
 
-getConnection(client => {
+orm.getConnection(client => {
     console.log('Doing something...')
     client.end()
 }, {

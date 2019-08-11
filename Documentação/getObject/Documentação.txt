@@ -20,6 +20,8 @@ Exemplos de uso:
 
 1)
 --------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
 class Pessoa
 {
     constructor(id = null, nome = null)
@@ -29,7 +31,7 @@ class Pessoa
     }
 }
 
-getObject(new Pessoa(1, null), (res, err) => {
+orm.getObject(new Pessoa(1, null), (res, err) => {
     if(!err)
     {
         console.log(res)
@@ -39,6 +41,8 @@ getObject(new Pessoa(1, null), (res, err) => {
 
 2)
 --------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
 class Aluno
 {
     constructor(matricula = null, nome = null, curso = null)
@@ -49,7 +53,7 @@ class Aluno
     }
 }
 
-getObject(new Aluno(null, 'Raphael', 'Administração'), (res, err) => {
+orm.getObject(new Aluno(null, 'Raphael', 'Administração'), (res, err) => {
     if(!err)
     {
         console.log(res)

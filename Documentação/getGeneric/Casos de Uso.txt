@@ -32,11 +32,11 @@ insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
 7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+const orm = require('./index')
 
 let query = 'select * from atleta'
 
-getGeneric(query, null, resp => {
+orm.getGeneric(query, null, resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -80,12 +80,12 @@ insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
 7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+const orm = require('./index')
 
 let query = 'select * from atleta where modalidade = $1'
 let values = ['Futebol']
 
-getGeneric(query, values, resp => {
+orm.getGeneric(query, values, resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -130,12 +130,12 @@ insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
 7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+const orm = require('./index')
 
 let query = 'select * from atleta where modalidade in ($1, $2)'
 let values = ['Basquete', 'Poker']
 
-getGeneric(query, values, resp => {
+orm.getGeneric(query, values, resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -167,11 +167,11 @@ create table musica (autor varchar(50), nome varchar(50), ano int);
 4) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+const orm = require('./index')
 
 let query = "insert into musica(autor, nome, ano) values ('John Lennon', 'Imagine', 1980)"
 
-getGeneric(query, null, resp => {
+orm.getGeneric(query, null, resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -215,12 +215,12 @@ insert into atleta (nome, modalidade) values ('Daniel Negreanu', 'Poker');
 7) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getGeneric, como no 
 exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const getGeneric = require('./getGeneric') //Modificar conforme necessidade
+const orm = require('./index')
 
 let query = 'select * from atleta where modalidade = $1'
 let values = ['Poker', 'Daniel Negreanu']
 
-getGeneric(query, values, (resp, err) => {
+orm.getGeneric(query, values, (resp, err) => {
     if(err)
     {
         throw err

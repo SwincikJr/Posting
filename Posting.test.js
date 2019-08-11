@@ -1,9 +1,9 @@
-const Posting = require('./Posting')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de Posting para pré-condições
 // Documentação/Posting/Casos de Uso.txt
 
-class Teste extends Posting
+class Teste extends orm.Posting
 {
     constructor()
     {

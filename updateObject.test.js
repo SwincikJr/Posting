@@ -1,14 +1,11 @@
-const getObject = require('./getObject')
-const insertObject = require('./insertObject')
-const updateObject = require('./updateObject')
-const Posting = require('./Posting')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de updateObject para pré-condições
 // Documentação/updateObject/Casos de Uso.txt
 
 test('Alterar dado de classe sem _Key', () => {
 
-    class Carro extends Posting
+    class Carro extends orm.Posting
     {
         constructor(id = null, marca = null, linha = null, modelo = null, ano_modelo = null)
         {
@@ -36,20 +33,20 @@ test('Alterar dado de classe sem _Key', () => {
 
     const update = () => {
         carros[0].ano_modelo = '2015'
-        updateObject(carros[0], resp => {
-            getObject(new Carro(carros[1].id), callback)
+        orm.updateObject(carros[0], resp => {
+            orm.getObject(new Carro(carros[1].id), callback)
         })
     }
 
     const secondInsert = () => {
-        insertObject(new Carro(null, 'GM', 'Celta', '1.0 Flex', '2009'), resp => {
+        orm.insertObject(new Carro(null, 'GM', 'Celta', '1.0 Flex', '2009'), resp => {
             carros.push(resp)
             update()
         })
     }
 
     const firstInsert = () => {
-        insertObject(new Carro(null, 'GM', 'Onix', '1.4 Flex', '2014'), resp => {
+        orm.insertObject(new Carro(null, 'GM', 'Onix', '1.4 Flex', '2014'), resp => {
             carros.push(resp)
             secondInsert()
         })
@@ -61,7 +58,7 @@ test('Alterar dado de classe sem _Key', () => {
 
 test('Alterar dado de classe somente com _Key', () => {
 
-    class Filial extends Posting
+    class Filial extends orm.Posting
     {
         constructor(id = null, logradouro = null, endereco = null, numero = null, bairro = null)
         {
@@ -89,12 +86,12 @@ test('Alterar dado de classe somente com _Key', () => {
     }
 
     const update = (instance) => {
-        updateObject(instance, resp => {
-            getObject(new Filial(resp.id), callback)
+        orm.updateObject(instance, resp => {
+            orm.getObject(new Filial(resp.id), callback)
         })
     }
 
-    insertObject(new Filial(null, 'Rua', 'das Conchas', 10, 'Vila Aurora'), resp => {
+    orm.insertObject(new Filial(null, 'Rua', 'das Conchas', 10, 'Vila Aurora'), resp => {
         objeto.id = resp.id
         objeto.logradouro = resp.logradouro
         objeto.endereco = resp.endereco
@@ -112,7 +109,7 @@ test('Alterar dado de classe somente com _Key', () => {
 
 test('Alterar dado de classe com atributos _Key e não _Key', () => {
 
-    class Conta extends Posting
+    class Conta extends orm.Posting
     {
         constructor(id = null, email = null, senha = null)
         {
@@ -129,7 +126,7 @@ test('Alterar dado de classe com atributos _Key e não _Key', () => {
 
     const insert = () => {
         return new Promise((resolve, reject) => {
-            insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
+            orm.insertObject(new Conta(null, 'teste@teste.com', 'password01'), resp => {
                 expected.id = resp.id
                 update().then((data) => resolve(data))
             })
@@ -138,7 +135,7 @@ test('Alterar dado de classe com atributos _Key e não _Key', () => {
 
     const update = () => {
         return new Promise((resolve, reject) => {
-            updateObject(expected, resp => {
+            orm.updateObject(expected, resp => {
                 checkResult().then((data) => resolve(data))
             })
         })
@@ -146,7 +143,7 @@ test('Alterar dado de classe com atributos _Key e não _Key', () => {
 
     const checkResult = () => {
         return new Promise((resolve, reject) => {
-            getObject(expected, resp => {
+            orm.getObject(expected, resp => {
                 resolve(resp)
             })
         })

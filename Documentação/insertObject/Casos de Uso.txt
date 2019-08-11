@@ -19,10 +19,9 @@ create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
-const insertObject = require('./insertObject')
+const orm = require('./index')
 
-class Aluno extends Posting
+class Aluno extends orm.Posting
 {
     constructor(id = null, nome = null, curso = null)
     {
@@ -34,7 +33,7 @@ class Aluno extends Posting
     }
 }
 
-insertObject(new Aluno(null, 'Mauro', 'ADS'), resp => {
+orm.insertObject(new Aluno(null, 'Mauro', 'ADS'), resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -65,10 +64,9 @@ create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
-const insertObject = require('./insertObject')
+const orm = require('./index')
 
-class Aluno extends Posting
+class Aluno extends orm.Posting
 {
     constructor(id = null, nome = null, curso = null)
     {
@@ -80,7 +78,7 @@ class Aluno extends Posting
     }
 }
 
-insertObject(new Aluno(null, null, null), resp => {
+orm.insertObject(new Aluno(null, null, null), resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------
@@ -107,7 +105,7 @@ module.exports = {
 --------------------------------------------------------------------------------------------------------------------
 3) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const insertObject = require('./insertObject')
+const orm = require('./index')
 
 class Inexistente
 {
@@ -117,7 +115,7 @@ class Inexistente
     }
 }
 
-insertObject(new Inexistente(), (resp, err) => {
+orm.insertObject(new Inexistente(), (resp, err) => {
     if(err)
     {
         throw err
@@ -155,7 +153,7 @@ create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const insertObject = require('./insertObject')
+const orm = require('./index')
 
 class Aluno
 {
@@ -165,7 +163,7 @@ class Aluno
     }
 }
 
-insertObject(new Aluno(), (resp, err) => {
+orm.insertObject(new Aluno(), (resp, err) => {
     if(err)
     {
         throw err
@@ -203,10 +201,9 @@ create table aluno (id serial primary key, nome varchar(50), curso varchar(50));
 --------------------------------------------------------------------------------------------------------------------
 4) O usuário deve criar um arquivo lab.js e utilizar a função insertObject como no exemplo abaixo:
 --------------------------------------------------------------------------------------------------------------------
-const Posting = require('./Posting')
-const insertObject = require('./insertObject')
+const orm = require('./index')
 
-class Aluno extends Posting
+class Aluno extends orm.Posting
 {
     constructor()
     {
@@ -218,7 +215,7 @@ class Aluno extends Posting
     }
 }
 
-insertObject(new Aluno(), resp => {
+orm.insertObject(new Aluno(), resp => {
     console.log(resp)
 })
 --------------------------------------------------------------------------------------------------------------------

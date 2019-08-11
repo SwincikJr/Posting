@@ -1,4 +1,4 @@
-const getConnection = require('./getConnection')
+const orm = require('./index')
 
 // Consulte os Casos de Usos automatizados de getConnection para pré-condições
 // Documentação/getConnection/Casos de Uso.txt 
@@ -10,7 +10,7 @@ test('Teste de conexão com configurações corretas (vindas dos arquivo posting
         expect(data.constructor.name).toEqual('Client')
     }
     
-    getConnection(callback)
+    orm.getConnection(callback)
 })
 
 test('Teste de conexão com configuraçoes incorretas (passadas como segundo parâmetro)', () => {
@@ -27,7 +27,7 @@ test('Teste de conexão com configuraçoes incorretas (passadas como segundo par
 
     const tryConnection = () => {
         return new Promise((resolve, reject) => {
-            getConnection((client, error) => {
+            orm.getConnection((client, error) => {
                 if(error)
                 {
                     reject()
@@ -61,5 +61,5 @@ test('Teste de conexão com configurações corretas (passadas como segundo par�
         expect(data.constructor.name).toEqual('Client')
     }
 
-    getConnection(callback)
+    orm.getConnection(callback)
 })

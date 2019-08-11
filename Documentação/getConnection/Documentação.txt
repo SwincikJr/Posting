@@ -29,9 +29,9 @@ Exemplos de uso:
 
 1)
 ------------------------------------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection')
+const orm = require('./index')
 
-getConnection((client, error) => {
+orm.getConnection((client, error) => {
     if(!error)
     {
         client.query('SELECT 1 as NUMERO', (err, res) => {
@@ -51,9 +51,9 @@ getConnection((client, error) => {
 
 2)
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-const getConnection = require('./getConnection')
+const orm = require('./index')
 
-getConnection((client, error) => {
+orm.getConnection((client, error) => {
     if(!error)
     {
         client.query('SELECT 1 as NUMERO', (err, res) => {

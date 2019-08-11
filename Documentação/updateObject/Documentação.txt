@@ -24,10 +24,9 @@ Exemplos de uso:
 
 1)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-const updateObject = require('./updateObject')
-const Posting = require('./Posting')
+const orm = require('./index')
 
-class Aluno extends Posting
+class Aluno extends orm.Posting
 {
     constructor(id = null, auto = null, nome = null, curso = null)
     {
@@ -41,7 +40,7 @@ class Aluno extends Posting
     }
 }
 
-updateObject(new Aluno(1, 'Outro auto', 'Mauro', 'ADS'), (res, err) => {
+orm.updateObject(new Aluno(1, 'Outro auto', 'Mauro', 'ADS'), (res, err) => {
     if(!err)
     {
         console.log(res)

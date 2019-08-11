@@ -23,6 +23,8 @@ Exemplos de uso:
 
 1)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
 class Teste
 {
     constructor(id = null, seq = null, campo = null)
@@ -33,7 +35,7 @@ class Teste
     }
 }
 
-deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
+orm.deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
     if(!err)
     {
         console.log(res)
@@ -43,7 +45,9 @@ deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
 
 2)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-class Teste extends Posting
+const orm = require('./index')
+
+class Teste extends orm.Posting
 {
     constructor(id = null, seq = null, campo = null)
     {
@@ -55,7 +59,7 @@ class Teste extends Posting
     }
 }
 
-deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
+orm.deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
     if(!err)
     {
         console.log(res)

@@ -1,12 +1,11 @@
-const Posting = require('./Posting')
-const insertObject = require('./insertObject')
+const orm = require('./index')
 
-// Consulte os Casos de Usos automatizados de insertObject para pr�-condi��es
-// Documenta��o/insertObject/Casos de Uso.txt
+// Consulte os Casos de Usos automatizados de insertObject para pré-condições
+// Documentação/insertObject/Casos de Uso.txt
 
 test('Inserir dado em tabela existente', () => {
 
-    class Aluno extends Posting
+    class Aluno extends orm.Posting
     {
         constructor(id = null, nome = null, curso = null)
         {
@@ -22,13 +21,13 @@ test('Inserir dado em tabela existente', () => {
         expect(data.id).not.toEqual(null)
     }
 
-    insertObject(new Aluno(null, 'Mauro', 'ADS'), callback)
+    orm.insertObject(new Aluno(null, 'Mauro', 'ADS'), callback)
 
 })
 
 test('Inserir dado em tabela existente somente com auto', () => {
 
-    class Aluno extends Posting
+    class Aluno extends orm.Posting
     {
         constructor(id = null, nome = null, curso = null)
         {
@@ -44,7 +43,7 @@ test('Inserir dado em tabela existente somente com auto', () => {
         expect(data.id).not.toEqual(null)
     }
 
-    insertObject(new Aluno(null, 'Mauro', 'ADS'), callback)
+    orm.insertObject(new Aluno(null, 'Mauro', 'ADS'), callback)
 
 })
 
@@ -62,7 +61,7 @@ test('Inserir dado em tabela inexistente', () => {
 
     const tryInsert = () => {
         return new Promise((resolve, reject) => {
-            insertObject(new Inexistente(), (resp, error) => {
+            orm.insertObject(new Inexistente(), (resp, error) => {
                 if(error)
                 {
                     reject()
@@ -95,7 +94,7 @@ test('Inserir dado em tabela existente e campo inexistente', () => {
 
     const tryInsert = () => {
         return new Promise((resolve, reject) => {
-            insertObject(new Aluno(), (res, err) => {
+            orm.insertObject(new Aluno(), (res, err) => {
                 if(err)
                 {
                     reject()
@@ -108,18 +107,13 @@ test('Inserir dado em tabela existente e campo inexistente', () => {
         })
     }
 
-    expect(() => {
-        insertObject(new Aluno(), resp => { return })
-        done()
-    }).toThrow()
-
     return tryInsert().catch(() => { erro = true }).finally(() => expect(erro).toEqual(true))
 
 })
 
 test('Inserir dados em tabela existente, campos existentes por�m com tipo de dado diferente da tabela', () => {
 
-    class Aluno extends Posting
+    class Aluno extends orm.Posting
     {
         constructor()
         {
@@ -135,6 +129,6 @@ test('Inserir dados em tabela existente, campos existentes por�m com tipo de d
         expect(resp.id).not.toEqual(null)
     }
 
-    insertObject(new Aluno(), callback)
+    orm.insertObject(new Aluno(), callback)
 
 })

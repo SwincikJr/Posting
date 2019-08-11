@@ -21,6 +21,8 @@ Exemplos de uso:
 
 1)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
 class Teste
 {
     constructor(id = null, seq = null, campo = null)
@@ -31,7 +33,7 @@ class Teste
     }
 }
 
-insertObject(new Teste(1, 2, 'Mauro'), (res, err) => {
+orm.insertObject(new Teste(1, 2, 'Mauro'), (res, err) => {
     if(!err)
     {
         console.log(res)
@@ -41,7 +43,9 @@ insertObject(new Teste(1, 2, 'Mauro'), (res, err) => {
 
 2)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-class Teste extends Posting
+const orm = require('./index')
+
+class Teste extends orm.Posting
 {
     constructor(id = null, seq = null, campo = null)
     {
@@ -53,7 +57,7 @@ class Teste extends Posting
     }
 }
 
-insertObject(new Teste(null, null, 'Mauro'), (res, err) => {
+orm.insertObject(new Teste(null, null, 'Mauro'), (res, err) => {
     if(!err)
     {
         console.log(res)
