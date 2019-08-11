@@ -1,0 +1,220 @@
+Caso 1: Consulta em uma tabela com dois registros, mas retornando apenas um (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table jogo (id serial primary key, nome varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve inserir nessa tabela um registro conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into jogo (nome) values ('Uncharted');
+insert into jogo (nome) values ('Resident Evil 4');
+--------------------------------------------------------------------------------------------------------------------
+5) O usuário deve criar um arquivo lab.js e utilizar a função getObjects como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getObjects = require('./getObjects')
+
+class Jogo
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObjects(new Jogo(1, 'Uncharted'), (res, err) => {
+    
+    if (!err)
+    {
+        console.log(res)
+    }
+    
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que um array contendo o objeto Jogo com os atributos id igual à 1 e nome igual à 'Uncharted' seja
+impresso no console.
+
+Caso 2: Consulta em uma tabela com dois registros e retornando os dois (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table jogo (id serial primary key, nome varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve inserir nessa tabela dois registros conforme segue:
+--------------------------------------------------------------------------------------------------------------------
+insert into jogo (nome) values ('Uncharted');
+insert into jogo (nome) values ('Resident Evil 4');
+--------------------------------------------------------------------------------------------------------------------
+5) O usuário deve criar um arquivo lab.js e utilizar a função getObjects como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getObjects = require('./getObjects')
+
+class Jogo
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObjects(new Jogo(), (res, err) => {
+    
+    if (!err)
+    {
+        console.log(res)
+    }
+    
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que o programa retorne um array com dois itens, sendo esses, instâncias da classe Jogo. Com os objetos correspondendo aos registros existentes na tabela.
+
+Caso 3: Consulta em uma tabela existente e nenhum registro existente (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados, sem registros, conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table pessoa (id serial primary key, nome varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+5) O usuário deve criar um arquivo lab.js e utilizar a função getObjects como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getObjects = require('./getObjects')
+
+class Pessoa
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+getObjects(new Pessoa(), res => {
+    console.log(res)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que "null" seja impresso no console.
+
+Caso 4: Consulta em uma tabela inexistente (Automatizar).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar um arquivo lab.js e utilizar a função getObjects como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getObjects = require('./getObjects')
+
+class Inexistente
+{
+
+}
+
+getObjects(new Inexistente(), res => {
+    console.log(res)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que uma exceção do tipo "relation 'Inexistente' does not exist" seja lançada ao console e que o programa seja abortado.
+
+Caso 5: Consulta em uma tabela existente buscando por campo inexistente (Automatizar).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar uma tabela em seu banco de dados conforme a seguinte estrutura:
+--------------------------------------------------------------------------------------------------------------------
+create table pessoa (id serial primary key, nome varchar(50));
+--------------------------------------------------------------------------------------------------------------------
+4) O usuário deve criar um arquivo lab.js e utilizar a função getObjects como no exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const getObjects = require('./getObjects')
+
+class Pessoa
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+let pessoa = new Pessoa()
+pessoa.inexistente = 'inexistente'
+
+getObjects(pessoa, res => {
+    console.log(res)
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que uma exceção de coluna inexistente seja lançada ao console e que o programa seja abortado.
