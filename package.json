@@ -1,6 +1,6 @@
 {
   "name": "posting",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Javascript ORM for connection to PostgreSQL database",
   "readmeFilename": "README.md",
   "keywords": [
@@ -10,7 +10,7 @@
   ],
   "tags": [
     "posting",
-    "1.0.0"
+    "0.0.1"
   ],
   "main": "index.js",
   "scripts": {
