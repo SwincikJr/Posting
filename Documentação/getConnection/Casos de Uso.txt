@@ -1,0 +1,135 @@
+Caso 1: arquivo postingConfig.js configurado corretamente (Automatizado).
+
+Pré-condições: 
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações corretas acerca do banco de dados 
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'database',
+    password: 'password',
+    port: 5432 //your port
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+orm.getConnection(client => {
+    console.log('Doing something...')
+    client.end()
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que a mensagem "Doing something..." seja impressa no terminal.
+
+Caso 2: arquivo postingConfig.js configurado incorretamente (Manual)
+
+Pré-condições:
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve configurar o arquivo postingConfig.js com as informações incorretas acerca do banco de dados
+Postgres que possui acesso, como no exemplo abaixo, e salva-lo no mesmo diretório do arquivo fonte getConnection.js:
+--------------------------------------------------------------------------------------------------------------------
+module.exports = {
+    user: 'usuarioInexistente',
+    host: 'hostInexistente',
+    database: 'databaseInexistente',
+    password: 'senhaErrada',
+    port: 5432 //Porta incorreta
+}
+--------------------------------------------------------------------------------------------------------------------
+3) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+orm.getConnection((client, error) => {
+    if(!error)
+    {
+        console.log('Doing something...')
+        client.end()
+    }
+    else 
+    {
+        throw error
+    }
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que o programa seja abortado, lançando o detalhamento do erro no terminal.
+
+Caso 3: arquivo postingConfig.js inexistente (Manual)
+
+Pré-condições:
+1) O usuário deve se certificar de que o arquivo postingConfig.js não esteja no mesmo diretório de getConnection.js
+2) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+orm.getConnection(client => {
+    console.log('Doing something...')
+    client.end()
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que o programa seja abortado com o erro "Cannot find module".
+
+Caso 4: Passagem do objeto correto de configuração como parâmetro da função getConnection (Automatizado)
+
+Pré-condições:
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+orm.getConnection(client => {
+    console.log('Doing something...')
+    client.end()
+}, {
+    user: 'postgres',
+    host: 'localhost',
+    database: 'testes',
+    password: 'password',
+    port: 5432
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que a mensagem "Doing something..." seja impressa no terminal.
+
+Caso 5: Passagem do objeto incorreto de configuração como parâmetro da função getConnection (Automatizado)
+
+Pré-condições:
+1) O usuário deve possuir acesso a um banco de dados Postgres.
+2) O usuário deve criar um arquivo lab.js contendo um código que utilize a função getConnection, como no 
+exemplo abaixo:
+--------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+orm.getConnection(client => {
+    console.log('Doing something...')
+    client.end()
+}, {
+    user: 'usuarioIncorreto',
+    host: 'hostIncorreto',
+    database: 'databaseIncorreto',
+    password: 'passwordIncorreto',
+    port: 0
+})
+--------------------------------------------------------------------------------------------------------------------
+
+Execução: em um terminal, estando no mesmo diretório do arquivo lab.js, execute o comando "node lab.js".
+
+Resultado Esperado: espera-se que o programa seja abortado, lançando o detalhamento do erro no terminal.

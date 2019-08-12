@@ -1,0 +1,41 @@
+Classe: Posting
+
+Arquivo fonte: Posting.js
+
+Descrição: A classe Posting é uma classe destinada à prover informações importantes acerca de outras classes
+que compõem o modelo de dados do programa que está utilizando as funcionalidades do Posting ORM. Assim,
+quando se deseja utilizar as características fornecidas pela classe Posting, basta que sua classe a herde.  
+
+Atributos:
+
+    1) _Auto: este atributo é utilizado pelo Posting ORM para identificar os atributos que correspondem
+à campos de tabelas cujo preenchimento é realizado de forma automática pelo banco de dados. Um exemplo deste
+tipo de campo pode ser o campo destinado a uma chave primária sequencial. Considerando esse exemplo, no 
+momento de uma inserção, os valores de tais atributos nao devem ser informados na query de inserção. Assim, o 
+atributo _Auto, quando preenchido, deve conter um array onde cada elemento é uma string com o nome do atributo
+automático.
+    Cuidados para o uso: O nome _Auto deve estar reservado para o propósito descrito e não ser usado de outra
+forma, para garantir o funcionamento correto da ORM.
+    Exemplos de uso: Para exemplos, consulte a Documentação de insertObject.
+
+    2) _Key: este atributo é utilizado pelo Posting ORM para identificar os atributos chaves de uma classe,
+destinados à identificar seu registro correspondente em uma tabela do banco de dados para operações de atualização
+e deleção.
+    Cuidados para o uso: O nome _Key deve estar reservado para o propósito descrito e não ser usado de outra forma.
+Além disso, é recomendado que os atributos chaves de uma classe sejam fixos e seus valores, uma vez preenchidos,
+não sejam alterados para garantir, assim, a integridade dos dados armazenado no banco de dados Postgres.
+
+Métodos:
+
+    1) setAuto(...values): este método é usado para preencher o atributo _Auto, e recebe como parâmetro uma lista de
+strings, onde cada uma é o nome de um atributo de preenchimento automático. Caso o atributo passado entre os
+parâmetros não exista na classe, ele será desconsiderado. 
+    Cuidados para o uso: recomendamos que este método seja utilizado no contrutor da classe herdeira de Posting.
+    Exemplos de uso: Para exemplos, consulte a Documentação de insertObject.
+    
+    2) setKey(...values): este método é usado para preencher o atributo _Key, e recebe como parâmetro uma lista de
+strings, onde cada uma é o nome de um atributo chave. Caso o atributo passado entre os parâmetros não exista na classe,
+ele será desconsiderado. 
+    Cuidados para o uso: recomendamos que este método seja utilizado no contrutor da classe herdeira de Posting.
+    Exemplos de uso: Para exemplos, consulte a Documentação de updateObject.
+    

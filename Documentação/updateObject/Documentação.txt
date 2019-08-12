@@ -1,0 +1,49 @@
+Função: updateObject
+
+Assinatura: updateObject(instance: any, callback: any, onConfig?: any): void
+
+Arquivo fonte: updateObject.js
+
+Descrição: A função updateObject realiza uma operação de atualização em um ou mais registros de um banco de dados Postgres. O parâmetro 
+instance deve receber um objeto contendo os dados atualizados que devem ser salvos no banco de dados. Caso a operação seja bem sucedida, a
+callback declarada no segundo parâmetro é invocada, recebendo como parâmetro o mesmo objeto passado para a função updateObject. Em caso de
+erro, a callback ainda será invocada, recebendo como segundo parâmetro o erro ocorrido. O parâmetro onConfig é opcional e, caso preenchido, 
+deve conter o objeto com os dados necessários para estabelecimento da conexão. Caso onConfig seja omitido, serão utilizadas as informações 
+contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de getConnection). 
+
+Cuidados para o uso: O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do 
+banco de dados em que se deseja realizar a alteração. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos 
+dessa tabela, com exceção de '_Key', que destina-se a informar os atributos responsáveis por identificar o(s) registro(s) que será (serão)
+alterado(s). É importante ressaltar que o atributo _Key será utilizado pela função updateObject para montar a cláusula WHERE da query
+de alteração que será executada no banco de dados, ou seja, caso nenhum atributo seja declarado em _Key, a alteração será realizada em toda
+a tabela do banco de dados. Além disso, caso os atributos declarados em _Key não garantam a unicidade do registro, mais de um registro na
+tabela será alterado. Por fim, os atributos declarados em _Auto (veja a documentação de Posting) serão ignorados e seus valores não serão
+salvos na tabela. Para declarar atributos chaves (_Key) ou automáticos (_Auto) em uma Classe, basta que ela herde a Classe Posting.
+ 
+Exemplos de uso:
+
+1)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+class Aluno extends orm.Posting
+{
+    constructor(id = null, auto = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.auto = 'auto'
+        this.nome = nome
+        this.curso = curso
+        this.setAuto('auto')
+        this.setKey('id')
+    }
+}
+
+orm.updateObject(new Aluno(1, 'Outro auto', 'Mauro', 'ADS'), (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
+}) // Query gerada: update Aluno set nome = 'Mauro', curso = 'ADS' where id = 1
+---------------------------------------------------------------------------------------------------------------------------------------------------------

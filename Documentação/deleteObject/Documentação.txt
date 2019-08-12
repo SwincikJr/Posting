@@ -1,0 +1,68 @@
+Função: deleteObject
+
+Assinatura: deleteObject(instance: any, callback: any, onConfig?: any): void
+
+Arquivo fonte: deleteObject.js
+
+Descrição: A função deleteObject realiza a deleção de um registro em uma tabela de um banco de dados Postgres. O parâmetro instance deve receber 
+um objeto que contenha os dados do registro que se deseja deletar. Caso a operação seja bem sucedida, a callback declarada no segundo parâmetro 
+é invocada, recebendo o mesmo objeto deletado como parâmetro. Em caso de erro, a callback ainda será invocada, recebendo como segundo parâmetro 
+o erro ocorrido. O parâmetro onConfig é opcional e, caso preenchido, deve conter o objeto com os dados necessários para estabelecimento da conexão. 
+Caso onConfig seja omitido, serão utilizadas as informações contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação 
+de getConnection).  
+
+Cuidados para o uso: O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do banco 
+de dados em que se deseje realizar a deleção. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos dessa tabela, com
+exceção de '_Auto' e '_Key', que são atributos reservados da Classe Posting. A função deleteObject utiliza os atributos delarados em '_Key' para 
+a construção da cláusula WHERE da query de deleção que será executada e, por isso, o atributo '_Key' deve conter os atributos da classe que, juntos, 
+formam o identificador único do registro a ser deletado. Caso os atributos declarados em '_Key' não garantam a unicidade do registro, mais de um 
+registro poderá ser deletado do banco de dados. Caso nenhum atributo seja informado em '_Key', toda a tabela será deletada. Para declarar os atributos 
+chaves (_Key) de uma Classe, baste que ela herde a Classe Posting (veja a documentação de Posting).
+
+Exemplos de uso:
+
+1)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+class Teste
+{
+    constructor(id = null, seq = null, campo = null)
+    {
+        this.id = id
+        this.seq = seq
+        this.campo = campo
+    }
+}
+
+orm.deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
+}) // Query gerada: delete from teste
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('./index')
+
+class Teste extends orm.Posting
+{
+    constructor(id = null, seq = null, campo = null)
+    {
+        super()
+        this.id = id
+        this.seq = seq
+        this.campo = campo
+        this.setKey('id', 'seq')
+    }
+}
+
+orm.deleteObject(new Teste(1, 2, 'Mauro'), (res, err) => {
+    if(!err)
+    {
+        console.log(res)
+    }
+}) // Query gerada: delete from teste where id = 1 and seq = 2
+---------------------------------------------------------------------------------------------------------------------------------------------------------

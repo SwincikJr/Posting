@@ -1,0 +1,17 @@
+{
+  "name": "posting",
+  "version": "1.0.0",
+  "description": "Javascript ORM for connection to PostgreSQL database",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "author": "Mauro Sergio Vapsys Swincik Junior & Victor Fernandes dos Santos",
+  "license": "MIT",
+  "dependencies": {
+    "pg": "7.8.1"
+  },
+  "devDependencies": {
+    "jest": "24.1.0"
+  }
+}
