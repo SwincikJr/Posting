@@ -6,7 +6,7 @@ Arquivo fonte: getObjects.js
 
 Descrição: A função getObjects realiza uma consulta simples em um banco de dados Postgres, em busca um ou mais registros que correspondem à instância passada. O parâmetro "instance" 
 deve ser um objeto contendo os atributos e os valores conhecidos para a consulta. Caso a consulta consiga ser realizada, a função invoca uma 
-callback passando-lhe um array com o(s) objeto(s) resultante(s) da consulta (ou nulo caso nenhum registro seja encontrado)Caso algum erro ocorra, a callback ainda
+callback passando-lhe um array com o(s) objeto(s) resultante(s) da consulta (ou um array vazio caso nenhum registro seja encontrado)Caso algum erro ocorra, a callback ainda
 será invocada, e receberá o erro ocorrido no segundo parâmetro. O terceiro parâmetro onConfig é opcional e, 
 caso usado, deve ser um objeto contento as informações necessárias para estabelecimento da conexão. Caso o parâmetro onConfig seja omitido, a 
 função utilizará as informações contidas no arquivo postingConfig.js (veja a documentação de getConnection).
