@@ -46,4 +46,25 @@ class Inexistente
 
 //orm.getsAsync(pessoa).then(resp => console.log(resp)).catch(error => console.log(error))
 
-orm.getsAsync({}, conn).then(resp => console.log(resp)).catch(error => console.log(error))
+//orm.getsAsync({}, conn).then(resp => console.log(resp)).catch(error => console.log(error))
+
+//let query = 'select * from atleta'
+
+//orm.genericAsync(query, null).then(resp => console.log(resp))
+
+//let query = 'select * from atleta where modalidade = $1'
+//let values = ['Futebol']
+
+//orm.genericAsync(query, values).then(resp => console.log(resp))
+
+//let query = 'select * from atleta where modalidade in ($1, $2)'
+//let values = ['Basquete', 'Poker']
+
+//orm.genericAsync(query, values).then(resp => console.log(resp))
+
+//let query = 'select * from atleta where modalidade = $1'
+//let values = ['Poker', 'Daniel Negreanu']
+
+//orm.genericAsync(query, values).then(resp => console.log(resp)).catch(error => console.log(error))
+
+orm.genericAsync("", null, conn).then(resp => console.log(resp)).catch(error => console.log(error))
