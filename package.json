@@ -1,6 +1,6 @@
 {
   "name": "posting",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Javascript ORM for connection to PostgreSQL database",
   "main": "index.js",
   "scripts": {

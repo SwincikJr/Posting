@@ -6,6 +6,7 @@ const insertObject = require('./insertObject')
 const updateObject = require('./updateObject')
 const deleteObject = require('./deleteObject')
 const getGeneric = require('./getGeneric')
+const getAsync = require('./getAsync')
 
 module.exports = {
     Posting,
@@ -15,5 +16,6 @@ module.exports = {
     insertObject,
     updateObject,
     deleteObject,
-    getGeneric
+    getGeneric,
+    getAsync
 }
