@@ -9,6 +9,7 @@ const getGeneric = require('./getGeneric')
 const getAsync = require('./getAsync')
 const getsAsync = require('./getsAsync')
 const genericAsync = require('./genericAsync')
+const insertAsync = require('./insertAsync')
 
 module.exports = {
     Posting,
@@ -21,5 +22,6 @@ module.exports = {
     getGeneric,
     getAsync,
     getsAsync,
-    genericAsync
+    genericAsync,
+    insertAsync
 }

@@ -26,9 +26,33 @@ class Pessoa
     }
 }
 
+/*
 class Inexistente
 {
 
+}
+*/
+
+/*
+class Aluno extends orm.Posting
+{
+    constructor(id = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.nome = nome
+        this.curso = curso
+        this.setAuto('id')
+    }
+}
+*/
+
+class Inexistente
+{
+    constructor()
+    {
+        this.atributo = null
+    }
 }
 
 //orm.getAsync({}, conn).then(resp => console.log(resp)).catch(error => console.log(error))
@@ -67,4 +91,36 @@ class Inexistente
 
 //orm.genericAsync(query, values).then(resp => console.log(resp)).catch(error => console.log(error))
 
-orm.genericAsync("", null, conn).then(resp => console.log(resp)).catch(error => console.log(error))
+//orm.genericAsync("", null, conn).then(resp => console.log(resp)).catch(error => console.log(error))
+
+//orm.insertAsync(new Aluno(null, 'Mauro', 'ADS')).then(resp => console.log(resp))
+
+/*
+class Aluno extends orm.Posting
+{
+    constructor(id = null, nome = null, curso = null)
+    {
+        super()
+        this.id = id
+        this.nome = nome
+        this.curso = curso
+        this.setAuto('id', 'nome', 'curso')
+    }
+}
+
+orm.insertAsync(new Aluno()).then(resp => console.log(resp))
+*/
+
+//orm.insertAsync(new Inexistente()).then(resp => console.log(resp)).catch(error => console.log(error))
+
+class Aluno
+{
+    constructor()
+    {
+        this.inexistente = 'inexistente'
+    }
+}
+
+//orm.insertAsync(new Aluno()).then(resp => console.log(resp)).catch(error => console.log(error))
+
+//orm.insertAsync({}, conn).then(resp => console.log(resp)).catch(error => console.log(error))
