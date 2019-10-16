@@ -93,8 +93,8 @@ test('Execução de query sem retorno.', async () => {
     let response = []
     let beforeInsert = 0
     let afterInsert = 0
-    let insert = "insert into musica(autor, nome, ano) values ('John Lennon', 'Imagine', 1980)"
-    let query = "select * from musica where autor = 'John Lennon' and nome = 'Imagine' and ano = 1980;"
+    let insert = "insert into musica(autor, nome, ano) values ('John Lennon', 'Imagine', 1971)"
+    let query = "select * from musica where autor = 'John Lennon' and nome = 'Imagine' and ano = 1971;"
 
     try
     {
