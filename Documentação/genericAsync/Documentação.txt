@@ -1,0 +1,30 @@
+Função: genericAsync
+
+Assinatura: genericAsync(text: any, values: any, onConfig?: any): Promise
+
+Arquivo fonte: genericAsync.js
+
+Descrição: A função genericAsync realiza a chamada da função getGeneric no formato de Promise. O parâmetro text da função genericAsync será passado
+para o parâmetro text da função getGeneric, assim como o parâmetro values de genericAsync será passado para o parâmetro values de getGeneric e o 
+parâmetro opcional onConfig da função genericAsync será passado para o parâmetro onConfig da função getGeneric. Para mais detalhes acerca dos 
+parâmetros text, values e onConfig, consulte a documentação de getGeneric. Caso a função getGeneric consiga ser executada sem erros, a Promise de 
+genericAsync será resolvida, recebendo a coleção encontrada na busca de getGeneric. Caso algum erro ocorra na execução de getGeneric, a Promise de 
+genericAsync será rejeitada, recebendo o erro ocorrido. 
+
+Cuidados para o uso: O parâmetro text, o parâmetro values e o parâmetro onConfig de genericAsync são os mesmo de getGeneric. Consulte a documentação 
+de getGeneric para mais detalhes acerca destes parâmetros. 
+
+Exemplos de uso:
+
+1)
+--------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('posting')
+
+// Query parametrizada
+let query = 'select campo1, campo2, campo3 from tabela where campo1 = $1 and campo2 = $2'
+let values = ['value1', 'value2']
+
+orm.genericAsync(query, values)
+    .then(resp => console.log(resp))
+    .catch(error => console.log(error)) // Na query, '$1' será substituído pelo primeiro item do array e '$2' será substituído pelo segundo item do array
+--------------------------------------------------------------------------------------------------------------------------------------------------

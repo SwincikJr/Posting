@@ -1,6 +1,6 @@
 {
   "name": "posting",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Javascript ORM for connection to PostgreSQL database",
   "readmeFilename": "README.md",
   "keywords": [
@@ -10,16 +10,17 @@
   ],
   "tags": [
     "posting",
-    "0.0.1"
+    "0.0.2"
   ],
   "main": "index.js",
   "scripts": {
     "test": "echo 1"
   },
-  "author": [{
+  "author": { 
     "name": "Mauro Sergio Vapsys Swincik Junior",
     "email": "mauroswincikjr@gmail.com"
-  },{
+  },
+  "contributors": [{
     "name": "Victor Fernandes dos Santos",
     "email": "fernandes.victor@hotmail.com"
   }],
