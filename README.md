@@ -178,6 +178,32 @@ A função getObject realiza uma consulta simples em um banco de dados Postgres,
     }) // Query executada: select * from aluno where nome = 'Raphael' and curso = 'Administração'
 
 
+### getAsync
+
+#### Descrição
+A função getAsync realiza a chamada da função getObject no formato de Promise. O parâmetro instance da função getAsync será passado para o parâmetro instance da função getObject, assim como o parâmetro opcional onConfig da função getAsync será passado para o parâmetro onConfig da função getObject. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de getObject. Caso a função getObject consiga ser executada sem erros, a Promise de getAsync será resolvida, recebendo o objeto encontrado na busca de getObject. Caso algum erro ocorra na execução de getObject, a Promise de getAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro instance e o parâmetro onConfig de getAsync são os mesmo de getObject. Consulte a documentação de getObject para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Pessoa
+    {
+        constructor(id = null, nome = null)
+        {
+            this.id = id
+            this.nome = nome
+        }
+    }
+
+    orm.getAsync(new Pessoa(1, null))
+        .then(resp => console.log(resp))
+        .catch(error => console.log(error)) // Query executada: select * from pessoa where id = 1
+
+
 ### getObjects
 
 #### Descrição
@@ -226,6 +252,32 @@ A função getObjects realiza uma consulta simples em um banco de dados Postgres
     }) // Query executada: select * from aluno where nome = 'Raphael' and curso = 'Administração'
 
 
+### getsAsync
+
+#### Descrição
+A função getsAsync realiza a chamada da função getObjects no formato de Promise. O parâmetro instance da função getsAsync será passada para o parâmetro instance da função getObjects, assim como o parâmetro opcional onConfig da função getsAsync será passado para o parâmetro onConfig da função getObjects. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de getObjects. Caso a função getObjects consiga ser executada sem erros, a Promise de getsAsync será resolvida, recebendo a coleção encontrada na busca de getObjects. Caso algum erro ocorra na execução de getObjects, a Promise de getsAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro instance e o parâmetro onConfig de getAsync são os mesmo de getObjects. Consulte a documentação de getObjects para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Pessoa
+    {
+        constructor(id = null, nome = null)
+        {
+            this.id = id
+            this.nome = nome
+        }
+    }
+
+    orm.getsAsync(new Pessoa())
+        .then(resp => console.log(resp))
+        .catch(error => console.log(error)) // Query executada: select * from pessoa
+
+
 ### getGeneric
 
 #### Descrição
@@ -268,6 +320,27 @@ Como Posting ORM é baseado no pacote node-postgres (pg), é possível passar um
         }
     }) // Como a query executada não traz o resultado de uma consulta, res será um array vazio.
     // Porém, se a callback é invocada, significa que a execução foi bem sucedida, por tanto, teve efeito no banco de dados.
+
+
+### genericAsync
+
+#### Descrição
+A função genericAsync realiza a chamada da função getGeneric no formato de Promise. O parâmetro text da função genericAsync será passado para o parâmetro text da função getGeneric, assim como o parâmetro values de genericAsync será passado para o parâmetro values de getGeneric e o parâmetro opcional onConfig da função genericAsync será passado para o parâmetro onConfig da função getGeneric. Para mais detalhes acerca dos parâmetros text, values e onConfig,consulte a documentação de getGeneric. Caso a função getGeneric consiga ser executada sem erros, a Promise de genericAsync será resolvida, recebendo a coleção encontrada na busca de getGeneric. Caso algum erro ocorra na execução de getGeneric, a Promise de genericAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro text, o parâmetro values e o parâmetro onConfig de genericAsync são os mesmo de getGeneric. Consulte a documentação de getGeneric para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    // Query parametrizada
+    let query = 'select campo1, campo2, campo3 from tabela where campo1 = $1 and campo2 = $2'
+    let values = ['value1', 'value2']
+
+    orm.genericAsync(query, values)
+        .then(resp => console.log(resp))
+        .catch(error => console.log(error)) // Na query, '$1' será substituído pelo primeiro item do array e '$2' será substituído pelo segundo item do array
 
 
 ### insertObject
@@ -321,6 +394,37 @@ O objeto passado no parâmetro instance deve ser instância de uma Classe cujo n
     // Neste caso, mesmo que os valores de id e seq do objeto estivessem previamente preenchidos, seriam desonsiderados e substituídos pelo retorno da query
 
 
+### insertAsync
+
+#### Descrição
+A função insertAsync realiza a chamada da função insertObject no formato de Promise. O parâmetro instance da função insertAsync será passado para o parâmetro instance da função insertObject, assim como o parâmetro opcional onConfig da função insertAsync será passado para o parâmetro onConfig da função insertObject. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de insertObject. Caso a função insertObject consiga ser executada sem erros, a Promise de insertAsync será resolvida, recebendo o objeto inserido na execução de insertObject. Caso algum erro ocorra na execução de insertObject, a Promise de insertAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro instance e o parâmetro onConfig de insertAsync são os mesmo de insertObject. Consulte a documentação de insertObject para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Teste extends orm.Posting
+    {
+        constructor(id = null, seq = null, campo = null)
+        {
+            super()
+            this.id = id
+            this.seq = seq
+            this.campo = campo
+            this.setAuto('id', 'seq')
+        }
+    }
+
+    orm.insertAsync(new Teste(null, null, 'Mauro'))
+        .then(resp => console.log(resp))
+        .catch(error => console.log(error)) // Query gerada: insert into teste (campo) values ('Mauro') returning id, seq
+    // Os valores de retorno da query são usados para preencher o objeto antes de devolvê-lo à callback de insertObject
+    // Neste caso, mesmo que os valores de id e seq do objeto estivessem previamente preenchidos, seriam desonsiderados e substituídos pelo retorno da query
+
+
 ### updateObject
 
 #### Descrição
@@ -355,13 +459,44 @@ O objeto passado no parâmetro instance deve ser uma instância de uma Classe cu
     }) // Query gerada: update Aluno set nome = 'Mauro', curso = 'ADS' where id = 1
 
 
+### updateAsync
+
+#### Descrição
+A função updateAsync realiza a chamada da função updateObject no formato de Promise. O parâmetro instance da função updateAsync será passado para o parâmetro instance da função updateObject, assim como o parâmetro opcional onConfig da função updateAsync será passado para o parâmetro onConfig da função updateObject. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de updateObject. Caso a função updateObject consiga ser executada sem erros, a Promise de updateAsync será resolvida, recebendo o mesmo objeto passado na execução de updateObject. Caso algum erro ocorra na execução de updateObject, a Promise de updateAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro instance e o parâmetro onConfig de updateAsync são os mesmo de updateObject. Consulte a documentação de updateObject para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Aluno extends orm.Posting
+    {
+        constructor(id = null, auto = null, nome = null, curso = null)
+        {
+            super()
+            this.id = id
+            this.auto = 'auto'
+            this.nome = nome
+            this.curso = curso
+            this.setAuto('auto')
+            this.setKey('id')
+        }
+    }
+
+    orm.updateAsync(new Aluno(1, 'Outro auto', 'Mauro', 'ADS'))
+        .then(resp => console.log('update ok...'))
+        .catch(error => console.log(error)) // // Query gerada: update Aluno set nome = 'Mauro', curso = 'ADS' where id = 1
+
+
 ### deleteObject
 
 #### Descrição
 A função deleteObject realiza a deleção de um registro em uma tabela de um banco de dados Postgres. O parâmetro instance deve receber um objeto que contenha os dados do registro que se deseja deletar. Caso a operação seja bem sucedida, a callback declarada no segundo parâmetro é invocada, recebendo o mesmo objeto deletado como parâmetro. Em caso de erro, a callback ainda será invocada, recebendo como segundo parâmetro o erro ocorrido. O parâmetro onConfig é opcional e, caso preenchido, deve conter o objeto com os dados necessários para estabelecimento da conexão. Caso onConfig seja omitido, serão utilizadas as informações contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de getConnection).
 
 #### Cuidados para o uso
-O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do banco de dados em que se deseje realizar a deleção. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos dessa tabela, com exceção de '_Auto' e '_Key', que são atributos reservados da Classe Posting. A função deleteObject utiliza os atributos delarados em '_Key' para a construção da cláusula WHERE da query de deleção que será executada e, por isso, o atributo '_Key' deve conter os atributos da classe que, juntos, formam o identificador único do registro a ser deletado. Caso os atributos declarados em '_Key' não garantam a unicidade do registro, mais de um registro poderá ser deletado do banco de dados. Caso nenhum atributo seja informado em '_Key', toda a tabela será deletada. Para declarar os atributos chaves (_Key) de uma Classe, baste que ela herde a Classe Posting (veja a documentação de Posting).
+O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do banco de dados em que se deseje realizar a deleção. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos dessa tabela, com exceção de '_Auto' e '_Key', que são atributos reservados da Classe Posting. A função deleteObject utiliza os atributos declarados em '_Key' para a construção da cláusula WHERE da query de deleção que será executada e, por isso, o atributo '_Key' deve conter os atributos da classe que, juntos, formam o identificador único do registro a ser deletado. Caso os atributos declarados em '_Key' não garantam a unicidade do registro, mais de um registro poderá ser deletado do banco de dados. Caso nenhum atributo seja informado em '_Key', toda a tabela será deletada. Para declarar os atributos chaves (_Key) de uma Classe, baste que ela herde a Classe Posting (veja a documentação de Posting).
 
 #### Exemplos
 
@@ -402,3 +537,32 @@ O objeto passado no parâmetro instance deve ser uma instância de uma Classe cu
             console.log(res)
         }
     }) // Query gerada: delete from teste2 where id = 1 and seq = 2
+
+
+### deleteAsync
+
+#### Descrição
+A função deleteAsync realiza a chamada da função deleteObject no formato de Promise. O parâmetro instance da função deleteAsync será passado para o parâmetro instance da função deleteObject, assim como o parâmetro opcional onConfig da função deleteAsync será passado para o parâmetro onConfig da função deleteObject. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de deleteObject. Caso a função deleteObject consiga ser executada sem erros, a Promise de deleteAsync será resolvida, recebendo o mesmo objeto passado na execução de deleteObject. Caso algum erro ocorra na execução de deleteObject, a Promise de deleteAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro instance e o parâmetro onConfig de deleteAsync são os mesmo de deleteObject. Consulte a documentação de deleteObject para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Teste extends orm.Posting
+    {
+        constructor(id = null, seq = null, campo = null)
+        {
+            super()
+            this.id = id
+            this.seq = seq
+            this.campo = campo
+            this.setKey('id', 'seq')
+        }
+    }
+
+    orm.deleteAsync(new Teste(1, 2, 'Mauro'))
+        .then(resp => console.log('delete ok...'))
+        .catch(error => console.log(error)) // Query gerada: delete from teste where id = 1 and seq = 2

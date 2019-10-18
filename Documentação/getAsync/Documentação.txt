@@ -1,0 +1,34 @@
+Função: getAsync
+
+Assinatura: getAsync(instance: any, onConfig?: any): Promise
+
+Arquivo fonte: getAsync.js
+
+Descrição: A função getAsync realiza a chamada da função getObject no formato de Promise. O parâmetro instance da função getAsync será passada
+para o parâmetro instance da função getObject, assim como o parâmetro opcional onConfig da função getAsync será passado para o parâmetro onConfig 
+da função getObject. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de getObject. Caso a função getObject 
+consiga ser executada sem erros, a Promise de getAsync será resolvida, recebendo o objeto encontrado na busca de getObject. Caso algum erro ocorra
+na execução de getObject, a Promise de getAsync será rejeitada, recebendo o erro ocorrido. 
+
+Cuidados para o uso: o parâmetro instance e o parâmetro onConfig de getAsync são os mesmo de getObject. Consulte a documentação de getObject para 
+mais detalhes acerca destes parâmetros. 
+ 
+Exemplos de uso:
+
+1)
+--------------------------------------------------------------------------------------------------------------------------------------------------
+const orm = require('posting')
+
+class Pessoa
+{
+    constructor(id = null, nome = null)
+    {
+        this.id = id
+        this.nome = nome
+    }
+}
+
+orm.getAsync(new Pessoa(1, null))
+    .then(resp => console.log(resp))
+    .catch(error => console.log(error)) // Query executada: select * from pessoa where id = 1
+--------------------------------------------------------------------------------------------------------------------------------------------------
