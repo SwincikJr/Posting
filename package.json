@@ -2,11 +2,32 @@
   "name": "posting",
   "version": "0.0.2",
   "description": "Javascript ORM for connection to PostgreSQL database",
+  "readmeFilename": "README.md",
+  "keywords": [
+    "orm",
+    "postgresql",
+    "posting"
+  ],
+  "tags": [
+    "posting",
+    "0.0.2"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage"
   },
-  "author": "Mauro Sergio Vapsys Swincik Junior & Victor Fernandes dos Santos",
+  "author": { 
+    "name": "Mauro Sergio Vapsys Swincik Junior",
+    "email": "mauroswincikjr@gmail.com"
+  },
+  "contributors": [{
+    "name": "Victor Fernandes dos Santos",
+    "email": "fernandes.victor@hotmail.com"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwincikJr/Posting"
+  },
   "license": "MIT",
   "dependencies": {
     "pg": "7.8.1"
