@@ -1,11 +1,11 @@
 const orm = require('./index')
 
-class Teste
+class Inexistente
 {
-	constructor(atr = null)
-	{
-		this.atr = atr
-	}
+    constructor()
+    {
+        this.inexistente = 'inexistente'
+    }
 }
 
 let conn = {
@@ -16,4 +16,4 @@ let conn = {
     port: 0
 }
 
-orm.updateAsync(new Teste(), conn).then(resp => console.log(resp)).catch(error => console.log(error))
+orm.deleteAsync(new Inexistente(), conn).then(resp => console.log(resp)).catch(error => console.log(error))
