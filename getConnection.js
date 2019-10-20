@@ -1,7 +1,20 @@
+const { Client } = require('pg')
+const path = require('path')
+const fs = require('fs')
+
 const getConnection = (callback, config = null) => {
+
+    const postingConfigPath = path.format({
+        dir: path.dirname(require.main.filename),
+        base: 'postingConfig'
+    })
+
+    let existsFile = fs.existsSync(postingConfigPath)
     
-    const { Client } = require('pg')
-    const conf = config ? config : require('./postingConfig') 
+    const postingConfig = require(existsFile ? postingConfigPath : './postingConfig')
+
+    const conf = config ? config : postingConfig
+    
     const client = new Client(conf)
 
     client.connect(error => {
