@@ -6,7 +6,7 @@ const getConnection = (callback, config = null) => {
 
     const postingConfigPath = path.format({
         dir: path.dirname(require.main.filename),
-        base: 'postingConfig'
+        base: 'postingConfig.js'
     })
 
     let existsFile = fs.existsSync(postingConfigPath)
