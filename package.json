@@ -16,20 +16,24 @@
   "scripts": {
     "test": "jest --coverage"
   },
-  "author": { 
+  "author": {
     "name": "Mauro Sergio Vapsys Swincik Junior",
     "email": "mauroswincikjr@gmail.com"
   },
-  "contributors": [{
-    "name": "Victor Fernandes dos Santos",
-    "email": "fernandes.victor@hotmail.com"
-  }],
+  "contributors": [
+    {
+      "name": "Victor Fernandes dos Santos",
+      "email": "fernandes.victor@hotmail.com"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SwincikJr/Posting"
   },
   "license": "MIT",
   "dependencies": {
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "pg": "7.8.1"
   },
   "devDependencies": {

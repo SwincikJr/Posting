@@ -70,10 +70,10 @@ Para exemplos, consulte a Documentação de updateObject e deleteObject.
 ### getConnection
 
 #### Descrição
-A função getConnection estabelece uma conexão com um banco de dados Postgres à partir das informações de conexão disponiblizadas no arquivo postingConfig.js no mesmo diretório do arquivo fonte getConnection.js ou no objeto de configuração passado como segundo parâmetro da função. Caso a conexão consiga ser estabelecida sem erros, a função invoca uma callback, passando-lhe como primeiro argumento o objeto client instanciado para a conexão. Caso haja falha no momento da conexão, a callback será invocada recebedo o erro ocorrido como segundo parâmetro.
+A função getConnection estabelece uma conexão com um banco de dados Postgres à partir das informações de conexão disponiblizadas no arquivo postingConfig.js no diretório raiz de seu projeto Node (o mesmo diretório do arquivo package.json), ou no mesmo diretório do arquivo fonte getConnection.js ou no objeto de configuração passado como segundo parâmetro da função. Caso a conexão consiga ser estabelecida sem erros, a função invoca uma callback, passando-lhe como primeiro argumento o objeto client instanciado para a conexão. Caso haja falha no momento da conexão, a callback será invocada recebedo o erro ocorrido como segundo parâmetro.
 
 #### Cuidados para o uso
-É importante ressaltar a necessidade do arquivo postingConfig.js no mesmo diretório do arquivo getConnection.js caso não seja passado nenhum objeto de configuração como segundo parâmetro da função. O arquivo postingConfig.js deve exportar de seu módulo um objeto contendo os atributos necessários para estabelecimento da conexão, conforme exemplo abaixo:
+É importante ressaltar a necessidade do arquivo postingConfig.js no mesmo diretório do arquivo getConnection.js ou na raiz do projeto Node caso não seja passado nenhum objeto de configuração como segundo parâmetro da função. O arquivo postingConfig.js deve exportar de seu módulo um objeto contendo os atributos necessários para estabelecimento da conexão, conforme exemplo abaixo:
 
     module.exports = {
         user: 'user',
