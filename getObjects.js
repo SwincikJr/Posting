@@ -40,13 +40,13 @@ const getObjects = (instance, callback, onConfig = null) => {
     
                     res.rows.forEach(row => {
                         
-                        let props = [];
+                        let objAux = new className()
                         
                         Object.getOwnPropertyNames(instance).forEach(element => {
-                            props.push(row[element])
+                            objAux[element] = row[element]
                         })
                         
-                        resultList.push(new className(...props));
+                        resultList.push(objAux);
     
                     })
     
