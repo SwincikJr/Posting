@@ -4,14 +4,21 @@ const fs = require('fs')
 
 const getConnection = (callback, config = null) => {
 
-    const postingConfigPath = path.format({
-        dir: path.dirname(require.main.filename),
-        base: 'postingConfig.js'
-    })
+    let postingConfigPath
+    let existsFile
+    let postingConfig
 
-    let existsFile = fs.existsSync(postingConfigPath)
+    if(!config)
+    {
+        postingConfigPath = path.format({
+            dir: path.dirname(require.main.filename),
+            base: 'postingConfig.js'
+        })
     
-    const postingConfig = require(existsFile ? postingConfigPath : './postingConfig')
+        existsFile = fs.existsSync(postingConfigPath)
+        
+        postingConfig = require(existsFile ? postingConfigPath : './postingConfig')
+    }
 
     const conf = config ? config : postingConfig
     
