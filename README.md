@@ -489,6 +489,64 @@ O parâmetro instance e o parâmetro onConfig de updateAsync são os mesmo de up
         .then(resp => console.log('update ok...'))
         .catch(error => console.log(error)) // // Query gerada: update Aluno set nome = 'Mauro', curso = 'ADS' where id = 1
 
+### updateWithCustomQuery
+
+#### Descrição
+A função updateWithCustomQuery realiza uma operação de atualização em um ou mais registros de um banco de dados Postgres permitindo adicionar uma query customizável, de acordo com a necessidade. O parâmetro fields receberá essa query em forma de um objeto, em que cada chave do objeto é um campo da tabela e o valor da propriedade é o valor que será usado no teste lógico feito pelo banco de dados. O parâmetro instance deve receber um objeto contendo os dados atualizados que devem ser salvos no banco de dados. Caso a operação seja bem sucedida, a callback declarada no terceiro parâmetro é invocada, recebendo como parâmetro o mesmo objeto passado para a função updateWithCustomQuery. Em caso de erro, a callback ainda será invocada, recebendo como segundo parâmetro o erro ocorrido. O parâmetro onConfig é opcional e, caso preenchido, deve conter o objeto com os dados necessários para estabelecimento da conexão. Caso onConfig seja omitido, serão utilizadas as informações contidas no arquivo postingConfig.js para estabelecimento da conexão (veja a documentação de getConnection). 
+
+#### Cuidados para o uso
+As chaves do objeto que será o parâmetro fields devem ser iguais aos nomes de campos existentes na tabela a ser atualizada. As validações passadas no objeto fields são conectadas pelo operador lógico AND, ou seja, as condições determinadas nesse parâmetro serão somadas e seguirão a regra de validação lógica do operador AND. O objeto passado no parâmetro instance deve ser uma instância de uma Classe cujo nome seja igual ao nome da tabela do banco de dados em que se deseja realizar a alteração. Da mesma forma, os atributos dessa Classe devem possuir os mesmos nomes dos campos dessa tabela, com exceção de '_Key', que destina-se a informar os atributos responsáveis por identificar o(s) registro(s) que será (serão) alterado(s). Por fim, os atributos declarados em _Auto (veja a documentação de Posting) serão ignorados e seus valores não serão salvos na tabela. Para declarar atributos chaves (_Key) ou automáticos (_Auto) em uma Classe, basta que ela herde a Classe Posting.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Pessoa extends orm.Posting {
+        constructor(id = null, nome = null, idade = null, sexo = null) {
+            super()
+            this.id = id
+            this.nome = nome
+            this.idade = idade
+            this.sexo = sexo
+            this.setAuto('id')
+            }
+        }}
+    }
+
+    orm.updateWithCustomQuery({ idade: '23', sexo: 'M' }, new Pessoa(null, 'Victoria', 26, 'F'), 
+        (res, err) => {
+            if(!err) {
+                console.log(res)
+            }
+    }) // Query gerada: update Pessoa set nome = 'Victoria', Idade = 26, sexo = 'F' where idade = 23 and sexo = 'M'
+
+### updateAsync
+
+#### Descrição
+A função updateWithCustomQueryAsync realiza a chamada da função updateWithCustomQuery no formato de Promise. O parâmetro instance da função updateWithCustomQueryAsync será passado para o parâmetro instance da função updateWithCustomQuery, assim como o parâmetro opcional onConfig da função updateWithCustomQueryAsync será passado para o parâmetro onConfig da função updateWithCustomQuery. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de updateWithCustomQuery. Caso a função updateWithCustomQuery consiga ser executada sem erros, a Promise de updateWithCustomQueryAsync será resolvida, recebendo o mesmo objeto passado na execução de updateWithCustomQuery. Caso algum erro ocorra na execução de updateWithCustomQuery, a Promise de updateWithCustomQueryAsync será rejeitada, recebendo o erro ocorrido.
+
+#### Cuidados para o uso
+O parâmetro instance e o parâmetro onConfig de updateWithCustomQueryAsync são os mesmo de updateWithCustomQuery. Consulte a documentação de updateWithCustomQuery para mais detalhes acerca destes parâmetros.
+
+#### Exemplos
+
+    const orm = require('posting')
+
+    class Pessoa extends orm.Posting {
+        constructor(id = null, nome = null, idade = null, sexo = null) {
+            super()
+            this.id = id
+            this.nome = nome
+            this.idade = idade
+            this.sexo = sexo
+            this.setAuto('id')
+            }
+        }}
+    }
+
+    orm.updateWithCustomQueryAsync({ idade: '23', sexo: 'M' }, new Pessoa(null, 'Victoria', 26, 'F'))
+        .then(resp => console.log('update ok...'))
+        .catch(error => console.log(error)) // // update Pessoa set nome = 'Victoria', Idade = 26, sexo = 'F' where idade = 23 and sexo = 'M'
 
 ### deleteObject
 

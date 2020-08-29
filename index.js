@@ -6,12 +6,14 @@ const insertObject = require('./insertObject')
 const updateObject = require('./updateObject')
 const deleteObject = require('./deleteObject')
 const getGeneric = require('./getGeneric')
+const updateWithCustomWhere = require('./updateWithCustomQuery')
 const getAsync = require('./getAsync')
 const getsAsync = require('./getsAsync')
 const genericAsync = require('./genericAsync')
 const insertAsync = require('./insertAsync')
 const updateAsync = require('./updateAsync')
 const deleteAsync = require('./deleteAsync')
+const updateWithCustomWhereAsync = require('./updateWithCustomQueryAsync')
 
 module.exports = {
     Posting,
@@ -27,5 +29,7 @@ module.exports = {
     genericAsync,
     insertAsync,
     updateAsync,
-    deleteAsync
+    deleteAsync,
+    updateWithCustomWhere,
+    updateWithCustomWhereAsync
 }
