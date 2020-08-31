@@ -54,8 +54,6 @@ const updateWithCustomWhere = (fields, instance, callback, onConfig = null) => {
             values: values
         }
 
-        console.log(query)
-
         getConnection((client, error) => {
 
             if(!error)

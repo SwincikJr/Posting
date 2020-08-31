@@ -517,9 +517,9 @@ As chaves do objeto que será o parâmetro fields devem ser iguais aos nomes de 
             if(!err) {
                 console.log(res)
             }
-    }) // Query gerada: update Pessoa set nome = 'Victoria', Idade = 26, sexo = 'F' where idade = 23 and sexo = 'M'
+    }) // Query gerada: update Pessoa set "nome" = 'Victoria', "Idade" = 26, "sexo" = 'F' where "idade" = 23 and "sexo" = 'M'
 
-### updateAsync
+### updateWithCustomQueryAsync
 
 #### Descrição
 A função updateWithCustomQueryAsync realiza a chamada da função updateWithCustomQuery no formato de Promise. O parâmetro instance da função updateWithCustomQueryAsync será passado para o parâmetro instance da função updateWithCustomQuery, assim como o parâmetro opcional onConfig da função updateWithCustomQueryAsync será passado para o parâmetro onConfig da função updateWithCustomQuery. Para mais detalhes acerca dos parâmetros instance e onConfig, consulte a documentação de updateWithCustomQuery. Caso a função updateWithCustomQuery consiga ser executada sem erros, a Promise de updateWithCustomQueryAsync será resolvida, recebendo o mesmo objeto passado na execução de updateWithCustomQuery. Caso algum erro ocorra na execução de updateWithCustomQuery, a Promise de updateWithCustomQueryAsync será rejeitada, recebendo o erro ocorrido.
