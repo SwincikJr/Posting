@@ -1,6 +1,6 @@
 {
   "name": "posting",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Javascript ORM for connection to PostgreSQL database",
   "readmeFilename": "README.md",
   "keywords": [
