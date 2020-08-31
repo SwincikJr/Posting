@@ -28,12 +28,12 @@ const insertObject = (instance, callback, onConfig = null) => {
         {   
             if (count == 1)
             {
-                campos += `${element}`
+                campos += `"${element}"`
                 valores += `$${count++}`     
             }
             else 
             {
-                campos += `, ${element}`
+                campos += `, "${element}"`
                 valores += `, $${count++}`
             }
 

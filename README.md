@@ -370,7 +370,7 @@ O objeto passado no parâmetro instance deve ser instância de uma Classe cujo n
         {
             console.log(res)
         }
-    }) // Query gerada: insert into teste (id, seq, campo) values (1, 2, 'Mauro')
+    }) // Query gerada: insert into teste ("id", "seq", "campo") values (1, 2, 'Mauro')
 
     class Teste2 extends orm.Posting
     {
@@ -420,7 +420,7 @@ O parâmetro instance e o parâmetro onConfig de insertAsync são os mesmo de in
 
     orm.insertAsync(new Teste(null, null, 'Mauro'))
         .then(resp => console.log(resp))
-        .catch(error => console.log(error)) // Query gerada: insert into teste (campo) values ('Mauro') returning id, seq
+        .catch(error => console.log(error)) // Query gerada: insert into teste ("campo") values ('Mauro') returning id, seq
     // Os valores de retorno da query são usados para preencher o objeto antes de devolvê-lo à callback de insertObject
     // Neste caso, mesmo que os valores de id e seq do objeto estivessem previamente preenchidos, seriam desonsiderados e substituídos pelo retorno da query
 
