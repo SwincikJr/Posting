@@ -25,11 +25,11 @@ const updateWithCustomWhere = (fields, instance, callback, onConfig = null) => {
         {
             if (set == "")
             {
-                set += `${element} = $${count++}`
+                set += `"${element}" = $${count++}`
             }
             else 
             {
-                set += `, ${element} = $${count++}`
+                set += `, "${element}" = $${count++}`
             }
 
             values.push(instance[element])
@@ -40,10 +40,10 @@ const updateWithCustomWhere = (fields, instance, callback, onConfig = null) => {
     {
         Object.getOwnPropertyNames(fields).forEach(field => {
             if (where == "") {
-                where += `where ${field} = $${count++}`
+                where += `where "${field}" = $${count++}`
             }
             else {
-                where += ` and ${field} = $${count++}`
+                where += ` and "${field}" = $${count++}`
             }
 
             values.push(fields[field])
@@ -53,6 +53,8 @@ const updateWithCustomWhere = (fields, instance, callback, onConfig = null) => {
             text: `update ${instance.constructor.name} set ${set} ${where}`,
             values: values
         }
+
+        console.log(query)
 
         getConnection((client, error) => {
 

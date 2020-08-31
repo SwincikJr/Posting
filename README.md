@@ -509,8 +509,7 @@ As chaves do objeto que será o parâmetro fields devem ser iguais aos nomes de 
             this.idade = idade
             this.sexo = sexo
             this.setAuto('id')
-            }
-        }}
+        }
     }
 
     orm.updateWithCustomQuery({ idade: '23', sexo: 'M' }, new Pessoa(null, 'Victoria', 26, 'F'), 
@@ -540,8 +539,7 @@ O parâmetro instance e o parâmetro onConfig de updateWithCustomQueryAsync são
             this.idade = idade
             this.sexo = sexo
             this.setAuto('id')
-            }
-        }}
+        }
     }
 
     orm.updateWithCustomQueryAsync({ idade: '23', sexo: 'M' }, new Pessoa(null, 'Victoria', 26, 'F'))
