@@ -25,11 +25,11 @@ const updateObject = (instance, callback, onConfig = null) => {
         {
             if (set == "")
             {
-                set += `${element} = $${count++}`
+                set += `"${element}" = $${count++}`
             }
             else 
             {
-                set += `, ${element} = $${count++}`
+                set += `, "${element}" = $${count++}`
             }
 
             values.push(instance[element])
@@ -41,11 +41,11 @@ const updateObject = (instance, callback, onConfig = null) => {
         keys.forEach(k => {
             if (where == "")
             {
-                where += `where ${k} = $${count++}`
+                where += `where "${k}" = $${count++}`
             }
             else 
             {
-                where += ` and ${k} = $${count++}`
+                where += ` and "${k}" = $${count++}`
             }
 
             values.push(instance[k])

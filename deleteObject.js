@@ -16,11 +16,11 @@ const deleteObject = (instance, callback, onConfig = null) => {
 
         if(where == '') 
         {
-            where = `where ${element} = $${count++}`
+            where = `where "${element}" = $${count++}`
         }
         else 
         {
-            where += ` and ${element} = $${count++}`
+            where += ` and "${element}" = $${count++}`
         }
 
         values.push(instance[element])
