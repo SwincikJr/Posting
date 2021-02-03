@@ -1,6 +1,6 @@
 {
   "name": "posting",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Javascript ORM for connection to PostgreSQL database",
   "readmeFilename": "README.md",
   "keywords": [
@@ -10,11 +10,11 @@
   ],
   "tags": [
     "posting",
-    "1.1.0"
+    "1.2.0"
   ],
   "main": "index.js",
   "scripts": {
-    "test": "echo 1"
+    "test": "npx jest --runInBand"
   },
   "author": {
     "name": "Mauro Sergio Vapsys Swincik Junior",
@@ -37,6 +37,6 @@
     "pg": "7.8.1"
   },
   "devDependencies": {
-    "jest": "24.1.0"
+    "jest": "^26.6.3"
   }
 }

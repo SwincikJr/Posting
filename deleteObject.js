@@ -28,7 +28,7 @@ const deleteObject = (instance, callback, onConfig = null) => {
     });
 
     let query = {
-        text: `delete from ${instance.constructor.name} ${where}`,
+        text: `delete from public."${instance.constructor.name}" ${where}`,
         values: values
     }
 

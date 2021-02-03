@@ -50,7 +50,7 @@ const updateWithCustomWhere = (fields, instance, callback, onConfig = null) => {
         })
 
         let query = {
-            text: `update ${instance.constructor.name} set ${set} ${where}`,
+            text: `update public."${instance.constructor.name}" set ${set} ${where}`,
             values: values
         }
 

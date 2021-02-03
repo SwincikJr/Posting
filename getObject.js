@@ -2,7 +2,7 @@ const getConnection = require('./getConnection')
 
 const getObject = (instance, callback, onConfig = null) => {
 
-    let filter = `select * from ${instance.constructor.name} where 1 = 1`;
+    let filter = `select * from public."${instance.constructor.name}" where 1 = 1`;
     let values = []
     let count = 1
 

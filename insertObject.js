@@ -19,7 +19,7 @@ const insertObject = (instance, callback, onConfig = null) => {
     {
         returning = 'returning '
         autos.forEach(a => {
-            returning += autos.indexOf(a) == 0 ? `${a}` : `, ${a}`
+            returning += autos.indexOf(a) == 0 ? `"${a}"` : `, "${a}"`
         })
     }
 
@@ -43,11 +43,11 @@ const insertObject = (instance, callback, onConfig = null) => {
 
     if (count > 1)
     {
-        text = `insert into ${instance.constructor.name} (${campos}) values (${valores}) ${returning}`
+        text = `insert into public."${instance.constructor.name}" (${campos}) values (${valores}) ${returning}`
     }
     else
     {
-        text = `insert into ${instance.constructor.name} default values ${returning}`
+        text = `insert into public."${instance.constructor.name}" default values ${returning}`
     }
 
     let query = {
