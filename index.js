@@ -14,6 +14,8 @@ const insertAsync = require('./insertAsync')
 const updateAsync = require('./updateAsync')
 const deleteAsync = require('./deleteAsync')
 const updateWithCustomQueryAsync = require('./updateWithCustomQueryAsync')
+const getObjectAndRelations = require('./getObjectAndRelations')
+const getObjectAndRelationsAsync = require('./getObjectAndRelationsAsync')
 
 module.exports = {
     Posting,
@@ -31,5 +33,7 @@ module.exports = {
     updateAsync,
     deleteAsync,
     updateWithCustomQuery,
-    updateWithCustomQueryAsync
+    updateWithCustomQueryAsync,
+    getObjectAndRelations,
+    getObjectAndRelationsAsync
 }
