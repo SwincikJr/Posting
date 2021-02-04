@@ -181,9 +181,6 @@ const normalizeResponse = (rows, instance, relations, relationships) => {
        const responseReference = getResponseObjectReference(row, instance, response)
        checkRelations(row, relations, relationships, responseReference)
     })
-    response.forEach(r => {
-        console.log(JSON.stringify(r))
-    })
     return response
 }
 
